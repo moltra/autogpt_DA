@@ -1,0 +1,68 @@
+⚠️ Before you continue
+Check out our backlog, roadmap and join our discord to discuss what's going on
+If you need help, you can ask in the discussions section or in #tech-support
+Throughly search the existing issues before creating a new one
+⚠️ Search for existing issues first ⚠️
+Please search the history to see if an issue already exists for the same problem.
+
+ I have searched the existing issues, and there is no existing issue for my problem *
+Please provide a searchable summary of the issue in the title above ⬆️.
+
+⚠️ SUPER-busy repo, please help the volunteer maintainers.
+The less time we spend here, the more time we spend building AutoGPT.
+
+Please help us help you:
+
+Does it work on stable branch (https://github.com/Torantulino/Auto-GPT/tree/stable)?
+Does it work on current master (https://github.com/Torantulino/Auto-GPT/tree/master)?
+Search for existing issues, "add comment" is tidier than "new issue"
+Ask on our Discord (https://discord.gg/autogpt)
+Provide relevant info:
+Provide commit-hash (git rev-parse HEAD gets it)
+If it's a pip/packages issue, provide pip version, python version
+If it's a crash, provide traceback.
+Which Operating System are you using?
+Please select the operating system you were using to run Auto-GPT when this problem occurred.
+
+
+Windows
+Which version of Auto-GPT are you using?
+Please select which version of Auto-GPT you were using when this issue occurred.
+If you downloaded the code from the releases page make sure you were using the latest code.
+If you weren't please try with the latest code.
+If installed with git you can run git branch to see which version of Auto-GPT you are running.
+
+
+Latest Release
+GPT-3 or GPT-4?
+If you are using Auto-GPT with --gpt3only, your problems may be caused by the limitations of GPT-3.5.
+
+
+GPT-3.5
+Steps to reproduce 🕹
+⚠️ Issues that we can't reproduce will be closed.
+
+Current behavior 😯
+Describe what happens instead of the expected behavior.
+
+Expected behavior 🤔
+Describe what should happen.
+
+Your prompt 📝
+If applicable please provide the prompt you are using. Your prompt is stored in your ai_settings.yaml file.
+
+```yaml
+# Paste your prompt here
+```
+
+Your Logs 📒
+Please include the log showing your error and the command that caused it, if applicable.
+You can copy it from your terminal or from logs/activity.log.
+This will help us understand your issue better!
+
+Example
+```log
+<insert your logs here>
+```
+
+Fields marked with an asterisk (*) are required

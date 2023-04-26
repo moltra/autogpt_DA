@@ -1,0 +1,925 @@
+,body
+0,"### Background
+Windows generally doesn't care about null bytes in paths, but posix systems do.  This alters the behavior of our path sanitization function to make it more platform independent by restricting the use of null bytes on all systems.  The error raised is the same raised by pathlib on posix systems.  I've also expanded the number of null byte representations we check for.
+
+### Changes
+
+- Add an explicit null bytes check to path sanitization.
+- Expanded the number of null byte representations checked for.
+
+### Documentation
+Comment added explaining the platform specific issues.
+
+### Test Plan
+Additional tests added for the function.
+
+Test suite run locally on linux and windows.
+
+### PR Quality Checklist
+- [X] My pull request is atomic and focuses on a single change.
+- [X] I have thoroughly tested my changes with multiple different prompts.
+- [X] I have considered potential risks and mitigations for my changes.
+- [X] I have documented my changes clearly and comprehensively.
+- [X] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+1,"<!-- ⚠️ At the moment any non-essential commands are not being merged.
+If you want to add non-essential commands to Auto-GPT, please create a plugin instead.
+We are expecting to ship plugin support within the week (PR #757).
+Resources:
+* https://github.com/Significant-Gravitas/Auto-GPT-Plugin-Template
+-->
+
+<!-- 📢 Announcement
+We've recently noticed an increase in pull requests focusing on combining multiple changes. While the intentions behind these PRs are appreciated, it's essential to maintain a clean and manageable git history. To ensure the quality of our repository, we kindly ask you to adhere to the following guidelines when submitting PRs:
+
+Focus on a single, specific change.
+Do not include any unrelated or ""extra"" modifications.
+Provide clear documentation and explanations of the changes made.
+Ensure diffs are limited to the intended lines — no applying preferred formatting styles or line endings (unless that's what the PR is about).
+For guidance on committing only the specific lines you have changed, refer to this helpful video: https://youtu.be/8-hSNHHbiZg
+
+By following these guidelines, your PRs are more likely to be merged quickly after testing, as long as they align with the project's overall direction. -->
+
+### Background
+<!-- Provide a concise overview of the rationale behind this change. Include relevant context, prior discussions, or links to related issues. Ensure that the change aligns with the project's overall direction. -->
+
+### Changes
+<!-- Describe the specific, focused change made in this pull request. Detail the modifications clearly and avoid any unrelated or ""extra"" changes. -->
+
+### Documentation
+<!-- Explain how your changes are documented, such as in-code comments or external documentation. Ensure that the documentation is clear, concise, and easy to understand. -->
+
+### Test Plan
+<!-- Describe how you tested this functionality. Include steps to reproduce, relevant test cases, and any other pertinent information. -->
+
+### PR Quality Checklist
+- [ ] My pull request is atomic and focuses on a single change.
+- [ ] I have thoroughly tested my changes with multiple different prompts.
+- [ ] I have considered potential risks and mitigations for my changes.
+- [ ] I have documented my changes clearly and comprehensively.
+- [ ] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+2,"### Background
+This module is not used anywhere in the codebase but has import time side effects (it makes a sqlite db that it never cleans up in the main repo directory).  
+
+### Changes
+Remove the `permanent_memory` module and the corresponding test.
+
+### Documentation
+N/A
+
+### Test Plan
+N/A
+
+### PR Quality Checklist
+- [X] My pull request is atomic and focuses on a single change.
+- [X] I have thoroughly tested my changes with multiple different prompts.
+- [X] I have considered potential risks and mitigations for my changes.
+- [X] I have documented my changes clearly and comprehensively.
+- [X] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+3,"### Background
+Addressing #942:
+
+AutoGPT is hard coded to use fast_llm_model for everything except the write_tests, evaluate_code, and improve_code commands. (see https://github.com/Torantulino/Auto-GPT/blob/master/scripts/chat.py#L66 for example)
+
+The result is that even if I use --gpt4only, we still see GPT 3.5 being used.
+
+**Steps to reproduce 🕹**
+Run python scripts/main.py with OpenAI API key that supports gp4 usage in env and pass --gpt4only as cli arg
+
+**Current behavior 😯**
+From #942: AutoGPT is only making use of gpt-3.5-turbo-0301 and text-embedding-ada-002-v2
+
+**Expected behavior 🤔**
+AutoGPT should use gpt-4 model if --gpt4only is passed in as cli arg
+
+### Changes
+Fix [#942](https://github.com/Significant-Gravitas/Auto-GPT/issues/942): Respect --gpt4only, --gpt3only cli args
+
+- Add `cfg.fast_llm_model` to `chat_with_ai` method parameters.
+- Remove the hardcoded model in `chat_with_ai` method and `Agent` class
+- Add `GPT_4_MODEL` and `GPT_3_MODEL` constants to `configurator.py`.
+- Change `--gpt3only` to use `GPT_3_MODEL` not `CFG.fast_llm_model`.
+- Change `--gpt4only` to use `GPT_4_MODEL` not `CFG.smart_llm_model`.
+- Add tests for `--gpt4only` and `--gpt3only` CLI args
+
+### Documentation
+No documentation changes. The docs will finally do what they say.
+
+### Test Plan
+- Added test_cli tests to test the behavior
+
+### PR Quality Checklist
+- [x] My pull request is atomic and focuses on a single change.
+- [x] I have thoroughly tested my changes with multiple different prompts.
+- [x] I have considered potential risks and mitigations for my changes.
+- [x] I have documented my changes clearly and comprehensively.
+- [x] I have not snuck in any ""extra"" small tweaks changes 
+"
+4,"### Background
+Sometimes the `get_hyperlinks` function returns too many links which exceed the GPT model's limitations, resulting in an `openai.error.InvalidRequestError`. For example: 
+```
+openai.error.InvalidRequestError: This model's maximum context length is 8191 tokens, however you requested 10982 tokens (10982 in your prompt; 0 for the completion). Please reduce your prompt; or completion length.
+```
+
+### Changes
+Added a `max_links` parameter to the `scrape_links` function  with a default value of 40 to limit the number of links returned.
+
+### Documentation
+The changes have been documented in the modified function's docstring.
+
+### Test Plan
+The changes have been tested on multiple websites.
+
+### PR Quality Checklist
+- [x] My pull request is atomic and focuses on a single change.
+- [x] I have thoroughly tested my changes with multiple different prompts.
+- [x] I have considered potential risks and mitigations for my changes.
+- [x] I have documented my changes clearly and comprehensively.
+- [x] I have not snuck in any ""extra"" small tweaks changes "
+5,"<!-- ⚠️ At the moment any non-essential commands are not being merged.
+If you want to add non-essential commands to Auto-GPT, please create a plugin instead.
+We are expecting to ship plugin support within the week (PR #757).
+Resources:
+* https://github.com/Significant-Gravitas/Auto-GPT-Plugin-Template
+-->
+
+<!-- 📢 Announcement
+We've recently noticed an increase in pull requests focusing on combining multiple changes. While the intentions behind these PRs are appreciated, it's essential to maintain a clean and manageable git history. To ensure the quality of our repository, we kindly ask you to adhere to the following guidelines when submitting PRs:
+
+Focus on a single, specific change.
+Do not include any unrelated or ""extra"" modifications.
+Provide clear documentation and explanations of the changes made.
+Ensure diffs are limited to the intended lines — no applying preferred formatting styles or line endings (unless that's what the PR is about).
+For guidance on committing only the specific lines you have changed, refer to this helpful video: https://youtu.be/8-hSNHHbiZg
+
+By following these guidelines, your PRs are more likely to be merged quickly after testing, as long as they align with the project's overall direction. -->
+
+### Background
+<!-- Provide a concise overview of the rationale behind this change. Include relevant context, prior discussions, or links to related issues. Ensure that the change aligns with the project's overall direction. -->
+
+### Changes
+<!-- Describe the specific, focused change made in this pull request. Detail the modifications clearly and avoid any unrelated or ""extra"" changes. -->
+
+### Documentation
+<!-- Explain how your changes are documented, such as in-code comments or external documentation. Ensure that the documentation is clear, concise, and easy to understand. -->
+
+### Test Plan
+<!-- Describe how you tested this functionality. Include steps to reproduce, relevant test cases, and any other pertinent information. -->
+
+### PR Quality Checklist
+- [ ] My pull request is atomic and focuses on a single change.
+- [ ] I have thoroughly tested my changes with multiple different prompts.
+- [ ] I have considered potential risks and mitigations for my changes.
+- [ ] I have documented my changes clearly and comprehensively.
+- [ ] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+6,"### Duplicates
+
+- [X] I have searched the existing issues
+
+### Summary 💡
+
+I am wondering if there exist any plarforms, like sharegpt, for users to share their use case of autogpt?
+
+### Examples 🌈
+
+_No response_
+
+### Motivation 🔦
+
+_No response_"
+7,"### ⚠️ Search for existing issues first ⚠️
+
+- [X] I have searched the existing issues, and there is no existing issue for my problem
+
+### 
+
+Windows
+
+### Which version of Auto-GPT are you using?
+
+Latest Release
+
+### GPT-3 or GPT-4?
+
+GPT-3.5
+
+### Steps to reproduce 🕹
+
+_No response_
+
+### Current behavior 😯
+
+openai.error.InvalidRequestError: This model's maximum context length is 8191 tokens, however you requested 78373 tokens (78373 in your prompt; 0 for the completion). Please reduce your prompt; or completion length.
+
+
+### Expected behavior 🤔
+
+_No response_
+
+### Your prompt 📝
+
+```yaml
+# Paste your prompt here
+```
+
+
+### Your Logs 📒
+
+```log
+<insert your logs here>
+```
+"
+8,"### Duplicates
+
+- [X] I have searched the existing issues
+
+### Summary 💡
+
+the list of commands are a huge limitation and its really annoying when all the processes are done and at last it says unkown commands and gets stuck there forever
+
+
+### Examples 🌈
+
+_No response_
+
+### Motivation 🔦
+
+it's hard because of the limited commands and the limitation to only run .py files"
+9,"### ⚠️ Search for existing issues first ⚠️
+
+- [X] I have searched the existing issues, and there is no existing issue for my problem
+
+### 
+
+Windows
+
+### Which version of Auto-GPT are you using?
+
+Stable (branch)
+
+### GPT-3 or GPT-4?
+
+GPT-3.5
+
+### Steps to reproduce 🕹
+
+Requested auto-gpt clone a repository and access it's information. An access token has been generated and granted. Also, I've set the settings in the .env file. 
+EXECUTE_LOCAL_COMMANDS=True
+RESTRICT_TO_WORKSPACE=False
+
+### Current behavior 😯
+
+It attempts to clone the repository and seems to run into trouble accessing the working directory. 
+SYSTEM:  Command clone_repository returned: Error: Cmd('git') failed due to: exit code(128) cmdline: git clone -v -- https://*****:*****@github.com/NiceTryGuyPython/etc stderr: 'fatal: could not create leading directories of '/home/user/Folders_Name': Permission denied '
+
+### Expected behavior 🤔
+
+It should be capable of cloning the repo into the generated folder in the directory. 
+
+### Your prompt 📝
+
+_No response_
+
+### Your Logs 📒
+
+_No response_"
+10,"### Duplicates
+
+- [X] I have searched the existing issues
+
+### Summary 💡
+
+AutoGPT should be able to parse website elements, as well as directly interact with the website. As of now `web_selenium.py` can only scrape text and links from each page. It should be able to, for instance, scrape buttons and click them, or fields and fill them. Ideally AutoGPT would figure all of this out and write and maintain code that does it. I tried coaxing it to do this without success.
+
+### Examples 🌈
+
+Example goal: find the cheapest round-trip flight from New York to Paris leaving May 1 and returning May 10. Flights should be direct and departing during typical waking hours.
+
+### Motivation 🔦
+
+Better interact with websites, use GUI elements, fill forms, etc."
+11,"### ⚠️ Search for existing issues first ⚠️
+
+- [X] I have searched the existing issues, and there is no existing issue for my problem
+
+### 
+
+Windows
+
+### Which version of Auto-GPT are you using?
+
+Latest Release
+
+### GPT-3 or GPT-4?
+
+GPT-3.5
+
+### Steps to reproduce 🕹
+
+How to solve ""Relative module names not supported"" error when running ""python -m autogpt"" on Windows after following the installation steps? The error message is ""C:\Users\99464\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe: Relative module names not supported"".
+
+### Current behavior 😯
+
+Cannot run autogpt despite installing the necessary dependencies
+
+### Expected behavior 🤔
+
+the autoGPT will run successfully
+
+### Your prompt 📝
+
+```yaml
+# Paste your prompt here
+```
+ python .\main.py
+Traceback (most recent call last):
+  File ""C:\Users\99464\tools\Auto-GPT-master\main.py"", line 1, in <module>
+    from autogpt import main
+ImportError: cannot import name 'main' from 'autogpt' (C:\Users\99464\tools\Auto-GPT-master\autogpt\__init__.py)
+PS C:\Users\99464\tools\Auto-GPT-master> python -m .\autogpt\
+C:\Users\99464\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe: Relative module names not supported
+
+### Your Logs 📒
+
+```log
+<insert your logs here>
+``
+"
+12,"### ⚠️ Search for existing issues first ⚠️
+
+- [X] I have searched the existing issues, and there is no existing issue for my problem
+
+### 
+
+Windows
+
+### Which version of Auto-GPT are you using?
+
+Latest Release
+
+### GPT-3 or GPT-4?
+
+GPT-3.5
+
+### Steps to reproduce 🕹
+
+Continue
+
+### Current behavior 😯
+
+This model's maximum context length is 8191 tokens, however you requested 11103 tokens (11103 in your prompt; 0 for the completion). Please reduce your prompt; or completion length.
+
+### Expected behavior 🤔
+
+Continue
+
+### Your prompt 📝
+
+```yaml
+# Paste your prompt here
+```
+
+
+### Your Logs 📒
+
+```log
+<insert your logs here>
+```
+"
+13,"Matrix all builds and tests across windows, macOS and Linux. Had another bug sneak through
+
+_Originally posted by @ntindle in https://github.com/Significant-Gravitas/Auto-GPT/pull/3059#discussion_r1174744363_
+            "
+14,"### Duplicates
+
+- [X] I have searched the existing issues
+
+### Summary 💡
+
+Need the system to be able to read SEC Financial Statements and not be limited because of a token limitation. 
+
+### Examples 🌈
+
+Not limited to token read.
+
+### Motivation 🔦
+
+The SEC Edgar website has a lot of financial data, but the AI is limited to how much it can read. "
+15,"### Background
+Many issues (https://github.com/Significant-Gravitas/Auto-GPT/issues/1891#issuecomment-1519176961) have been spawned from the fact that check_duplicate_operation will prevent you from writing, appending, or deleting the same file more than once.
+
+### Changes
+Removed the offending method and calls. I attempted to pursue a solution where we hashed the content and added it to each line of the file logging command, but then realized there were still cases where this would break (if we appended the same text to the same file twice, which is a perfectly valid operation and common as well). So, just removed the offending code.
+
+### Documentation
+Code removed
+
+### Test Plan
+Ran unittests and prompt asking chatGPT to test the specific scenario
+
+### PR Quality Checklist
+- [x] My pull request is atomic and focuses on a single change.
+- [x] I have thoroughly tested my changes with multiple different prompts.
+- [x] I have considered potential risks and mitigations for my changes.
+- [x] I have documented my changes clearly and comprehensively.
+- [x] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+"
+16,"### Background
+Small quality of life change. Moved the Dockerfile and docker-compose to .templates so that people can adjust the stuff locally without override on update.
+
+### Changes
+moved Dockerfile and docker-compose.yml to Dockerfile.template and docker-compose.yml.template
+updated readme to reflect the new instructions
+
+### Documentation
+
+### Test Plan
+
+### PR Quality Checklist
+- [x] My pull request is atomic and focuses on a single change.
+- [x] I have thoroughly tested my changes with multiple different prompts.
+- [x] I have considered potential risks and mitigations for my changes.
+- [x] I have documented my changes clearly and comprehensively.
+- [x] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+17,"<!-- ⚠️ At the moment any non-essential commands are not being merged.
+If you want to add non-essential commands to Auto-GPT, please create a plugin instead.
+We are expecting to ship plugin support within the week (PR #757).
+Resources:
+* https://github.com/Significant-Gravitas/Auto-GPT-Plugin-Template
+-->
+
+<!-- 📢 Announcement
+We've recently noticed an increase in pull requests focusing on combining multiple changes. While the intentions behind these PRs are appreciated, it's essential to maintain a clean and manageable git history. To ensure the quality of our repository, we kindly ask you to adhere to the following guidelines when submitting PRs:
+
+Focus on a single, specific change.
+Do not include any unrelated or ""extra"" modifications.
+Provide clear documentation and explanations of the changes made.
+Ensure diffs are limited to the intended lines — no applying preferred formatting styles or line endings (unless that's what the PR is about).
+For guidance on committing only the specific lines you have changed, refer to this helpful video: https://youtu.be/8-hSNHHbiZg
+
+By following these guidelines, your PRs are more likely to be merged quickly after testing, as long as they align with the project's overall direction. -->
+
+### Background
+<!-- Provide a concise overview of the rationale behind this change. Include relevant context, prior discussions, or links to related issues. Ensure that the change aligns with the project's overall direction. -->
+
+### Changes
+<!-- Describe the specific, focused change made in this pull request. Detail the modifications clearly and avoid any unrelated or ""extra"" changes. -->
+
+### Documentation
+<!-- Explain how your changes are documented, such as in-code comments or external documentation. Ensure that the documentation is clear, concise, and easy to understand. -->
+
+### Test Plan
+<!-- Describe how you tested this functionality. Include steps to reproduce, relevant test cases, and any other pertinent information. -->
+
+### PR Quality Checklist
+- [x] My pull request is atomic and focuses on a single change.
+- [x] I have thoroughly tested my changes with multiple different prompts.
+- [x] I have considered potential risks and mitigations for my changes.
+- [x] I have documented my changes clearly and comprehensively.
+- [x] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+18,"### Duplicates
+
+- [X] I have searched the existing issues
+
+### Summary 💡
+
+As Auto-GPT is a work in progress, it's usual to start over again and again. In this process, the same sites are returned by Google that provide in some cases no real value. I would appreciate it if such URLs could be manually. This would also help to prevent loops in some cases.
+
+In theory, also automatically adding sites to such a list would make sense, but it needs to be used carefully. For automatically adding, a setting could be used e.g. to add sites returning HTTP errors (4xx, 5xx).
+
+### Examples 🌈
+
+In some cases, sites are accessed which return a 404 or contain a totally different topic. It makes no sense to try to access such sites again.
+
+### Motivation 🔦
+
+I love Auto-GPT, but I hate to see it running over the same sites again and again, providing no value and costing tokens. It would increase the efficiency and effectivity of Auto-GPT if the usage of a URL blacklist is possible."
+19,"<!-- ⚠️ At the moment any non-essential commands are not being merged.
+If you want to add non-essential commands to Auto-GPT, please create a plugin instead.
+We are expecting to ship plugin support within the week (PR #757).
+Resources:
+* https://github.com/Significant-Gravitas/Auto-GPT-Plugin-Template
+-->
+
+<!-- 📢 Announcement
+We've recently noticed an increase in pull requests focusing on combining multiple changes. While the intentions behind these PRs are appreciated, it's essential to maintain a clean and manageable git history. To ensure the quality of our repository, we kindly ask you to adhere to the following guidelines when submitting PRs:
+
+Focus on a single, specific change.
+Do not include any unrelated or ""extra"" modifications.
+Provide clear documentation and explanations of the changes made.
+Ensure diffs are limited to the intended lines — no applying preferred formatting styles or line endings (unless that's what the PR is about).
+For guidance on committing only the specific lines you have changed, refer to this helpful video: https://youtu.be/8-hSNHHbiZg
+
+By following these guidelines, your PRs are more likely to be merged quickly after testing, as long as they align with the project's overall direction. -->
+
+### Background
+<!-- Provide a concise overview of the rationale behind this change. Include relevant context, prior discussions, or links to related issues. Ensure that the change aligns with the project's overall direction. -->
+
+### Changes
+<!-- Describe the specific, focused change made in this pull request. Detail the modifications clearly and avoid any unrelated or ""extra"" changes. -->
+
+### Documentation
+<!-- Explain how your changes are documented, such as in-code comments or external documentation. Ensure that the documentation is clear, concise, and easy to understand. -->
+
+### Test Plan
+<!-- Describe how you tested this functionality. Include steps to reproduce, relevant test cases, and any other pertinent information. -->
+
+### PR Quality Checklist
+- [ ] My pull request is atomic and focuses on a single change.
+- [ ] I have thoroughly tested my changes with multiple different prompts.
+- [ ] I have considered potential risks and mitigations for my changes.
+- [ ] I have documented my changes clearly and comprehensively.
+- [ ] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+20,"### Discussed in https://github.com/Significant-Gravitas/Auto-GPT/discussions/3109
+
+<div type='discussions-op-text'>
+
+<sup>Originally posted by **zsmj610** April 24, 2023</sup>
+Traceback (most recent call last):
+  File ""D:\anaconda3\envs\auto_gpt\lib\runpy.py"", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File ""D:\anaconda3\envs\auto_gpt\lib\runpy.py"", line 86, in _run_code
+    exec(code, run_globals)
+  File ""E:\Auto-GPT-0.2.2\autogpt\__main__.py"", line 5, in <module>
+    autogpt.cli.main()
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\click\core.py"", line 1130, in __call__
+    return self.main(*args, **kwargs)
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\click\core.py"", line 1055, in main
+    rv = self.invoke(ctx)
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\click\core.py"", line 1635, in invoke
+    rv = super().invoke(ctx)
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\click\core.py"", line 1404, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\click\core.py"", line 760, in invoke
+    return __callback(*args, **kwargs)
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\click\decorators.py"", line 26, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File ""E:\Auto-GPT-0.2.2\autogpt\cli.py"", line 151, in main
+    agent.start_interaction_loop()
+  File ""E:\Auto-GPT-0.2.2\autogpt\agent\agent.py"", line 75, in start_interaction_loop
+    assistant_reply = chat_with_ai(
+  File ""E:\Auto-GPT-0.2.2\autogpt\chat.py"", line 159, in chat_with_ai
+    assistant_reply = create_chat_completion(
+  File ""E:\Auto-GPT-0.2.2\autogpt\llm_utils.py"", line 93, in create_chat_completion
+    response = openai.ChatCompletion.create(
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\openai\api_resources\chat_completion.py"", line 25, in create
+    return super().create(*args, **kwargs)
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\openai\api_resources\abstract\engine_api_resource.py"", line 153, in create
+    response, _, api_key = requestor.request(
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\openai\api_requestor.py"", line 226, in request
+    resp, got_stream = self._interpret_response(result, stream)
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\openai\api_requestor.py"", line 619, in _interpret_response
+    self._interpret_response_line(
+  File ""D:\anaconda3\envs\auto_gpt\lib\site-packages\openai\api_requestor.py"", line 682, in _interpret_response_line
+    raise self.handle_error_response(
+openai.error.InvalidRequestError: This is not a chat model and thus not supported in the v1/chat/completions endpoint. Did you mean to use v1/completions?</div>"
+21,"### ⚠️ Search for existing issues first ⚠️
+
+- [X] I have searched the existing issues, and there is no existing issue for my problem
+
+### 
+
+Windows
+
+### Which version of Auto-GPT are you using?
+
+Latest Release
+
+### GPT-3 or GPT-4?
+
+GPT-4
+
+### Steps to reproduce 🕹
+
+python -m autogpt --continuous
+
+### Current behavior 😯
+
+After my installation, I can't get the program to work.
+After the first ""thinking"" passage, the application remains stuck on the google command. The input of the command seems correct but nothing happens, I waited more than 10 minutes before stopping the program. There are no display errors, even in the logs.
+I tried without and with the google api configured but the behaviour is still the same.
+
+### Expected behavior 🤔
+
+Google command should give an answer
+
+### Your prompt 📝
+
+```yaml
+an AI designed to autonomously develop and run businesses with the sole goal of increasing your net worth.
+```
+
+
+### Your Logs 📒
+
+```log
+2023-04-24 11:08:11,104 INFO NEWS:  Welcome to Auto-GPT! We'll keep you informed of the latest news and features by printing messages here.
+If you don't wish to see this message, you can run Auto-GPT with the --skip-news flag
+2023-04-24 11:08:11,694 INFO Welcome back!  Would you like me to return to being Entrepreneur-GPT?
+2023-04-24 11:08:13,660 INFO Welcome to Auto-GPT!  run with '--help' for more information.
+2023-04-24 11:08:13,904 INFO Create an AI-Assistant: Enter the name of your AI and its role below. Entering nothing will load defaults.
+2023-04-24 11:08:14,293 INFO Name your AI:  For example, 'Entrepreneur-GPT'
+2023-04-24 11:08:16,761 INFO Entrepreneur-GPT here! I am at your service.
+2023-04-24 11:08:17,014 INFO Describe your AI's role:  For example, 'an AI designed to autonomously develop and run businesses with the sole goal of increasing your net worth.'
+2023-04-24 11:08:18,269 INFO Enter up to 5 goals for your AI:  For example: 
+Increase net worth, Grow Twitter Account, Develop and manage multiple businesses autonomously'
+2023-04-24 11:08:19,373 INFO Using memory of type: LocalCache
+2023-04-24 11:08:19,529 INFO Using Browser: chrome
+2023-04-24 11:08:46,175 INFO  THOUGHTS: I need to focus on my goals.
+2023-04-24 11:08:46,425 INFO REASONING: To achieve my goals, I should start by researching business ideas and strategies.
+2023-04-24 11:08:46,770 INFO PLAN: 
+2023-04-24 11:08:46,820 INFO -  Research business ideas
+2023-04-24 11:08:46,960 INFO -  Develop a business plan
+2023-04-24 11:08:47,143 INFO -  Grow Twitter account
+2023-04-24 11:08:47,291 INFO -  Manage businesses autonomously
+2023-04-24 11:08:47,437 INFO CRITICISM: I need to ensure the research I conduct is relevant and efficient.
+2023-04-24 11:08:47,854 INFO NEXT ACTION:  COMMAND = google  ARGUMENTS = {'input': 'simple business ideas with no legal complications'}
+```
+"
+22,"### Duplicates
+
+- [X] I have searched the existing issues
+
+### Summary 💡
+
+We can use auto GPT for free if we could use bing AI instead of openai api key. There are number of projects which are using reverse engineered bing AI so i would suggest to look on that.
+
+### Examples 🌈
+
+_No response_
+
+### Motivation 🔦
+
+_No response_"
+23,"<!-- ⚠️ At the moment any non-essential commands are not being merged.
+If you want to add non-essential commands to Auto-GPT, please create a plugin instead.
+We are expecting to ship plugin support within the week (PR #757).
+Resources:
+* https://github.com/Significant-Gravitas/Auto-GPT-Plugin-Template
+-->
+
+<!-- 📢 Announcement
+We've recently noticed an increase in pull requests focusing on combining multiple changes. While the intentions behind these PRs are appreciated, it's essential to maintain a clean and manageable git history. To ensure the quality of our repository, we kindly ask you to adhere to the following guidelines when submitting PRs:
+
+Focus on a single, specific change.
+Do not include any unrelated or ""extra"" modifications.
+Provide clear documentation and explanations of the changes made.
+Ensure diffs are limited to the intended lines — no applying preferred formatting styles or line endings (unless that's what the PR is about).
+For guidance on committing only the specific lines you have changed, refer to this helpful video: https://youtu.be/8-hSNHHbiZg
+
+By following these guidelines, your PRs are more likely to be merged quickly after testing, as long as they align with the project's overall direction. -->
+
+### Background
+<!-- Provide a concise overview of the rationale behind this change. Include relevant context, prior discussions, or links to related issues. Ensure that the change aligns with the project's overall direction. -->
+The old `devcontainer.json` was not architecture agnostic. It would fail to build on ARM devices. 
+
+Now, with one click, this should automatically start up an Auto-GPT and a Redis container, connect them, and put your VsCode into the development environment of the Auto-GPT container. Regardless of your base operating system or processor architecture. 
+
+### Changes
+<!-- Describe the specific, focused change made in this pull request. Detail the modifications clearly and avoid any unrelated or ""extra"" changes. -->
+Modified the `devcontainer.json` to point at the `docker-compose.yml` instead of the `dockerfile`, and modified the `docker-compose.yml` and `dockerfile` from PR #1843 to work while nested inside of the `.devcontainer` folder, as well as other fixes for dev work such as using a default entry-point and keep alive for TTY. 
+
+### Documentation
+<!-- Explain how your changes are documented, such as in-code comments or external documentation. Ensure that the documentation is clear, concise, and easy to understand. -->
+In-code comments. 
+
+### Test Plan
+<!-- Describe how you tested this functionality. Include steps to reproduce, relevant test cases, and any other pertinent information. -->
+Open PR in VS-Code -> CMD + Shift + P -> Rebuild and Reopen in Dev Container -> Magic!
+
+### PR Quality Checklist
+- [X] My pull request is atomic and focuses on a single change.
+- [X] I have thoroughly tested my changes with multiple different prompts.
+- [X] I have considered potential risks and mitigations for my changes.
+- [X] I have documented my changes clearly and comprehensively.
+- [X] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+24,"## 🚀 Feature
+### Background
+Integrating with Aim would be fantastic, as it would provide a convenient method for tracking metadata and storing experiment histories in an intuitive and visually pleasing manner.
+To enhance experiment reproducibility and provide a unified, aesthetically pleasing user interface for exploring experiments and their corresponding input/outputs, it is desirable to furnish users with a fast and a solid tool. Aim facilitates gaining deeper insights, thus enhancing the quality of experimentation.
+
+### Changes
+The following changes are made in the codebase
+- Created `AimCallback` to track input prompts and agent replies, in a separate `aim.py` file.
+- Added cli option `--aim-repo` to give a specific Aim repo path if needed.
+- Passed an instance of `AimCallback`: `aim_callback` to track the logs in `start_interaction_loop` method 
+
+### Documentation
+I've included in-code comments to make it easy for the reviewer to understand.
+
+### Test Plan
+I executed Auto-GPT with some tasks and thoroughly explored the Aim UI during the response period of the interaction loop.
+
+### PR Quality Checklist
+- [ ] My pull request is atomic and focuses on a single change.
+- [x] I have thoroughly tested my changes with multiple different prompts.
+- [x] I have considered potential risks and mitigations for my changes.
+- [x] I have documented my changes clearly and comprehensively.
+- [ ] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+There is no need for any specific tests. By running Auto-GPT and examining Aim explorer, you will have all the information you need.
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->"
+25,"### ⚠️ Search for existing issues first ⚠️
+
+- [X] I have searched the existing issues, and there is no existing issue for my problem
+
+### 
+
+Windows
+
+### Which version of Auto-GPT are you using?
+
+Latest Release
+
+### GPT-3 or GPT-4?
+
+GPT-3.5
+
+### Steps to reproduce 🕹
+
+_No response_
+
+### Current behavior 😯
+
+s
+
+### Expected behavior 🤔
+
+_No response_
+
+### Your prompt 📝
+
+```yaml
+# Paste your prompt here
+```
+
+
+### Your Logs 📒
+
+```log
+<insert your logs here>
+```
+"
+26,"Hi, I wonder how to let images as input, it seems that GPT4 not support this now. how to use other llm models or autogpt plugins to support this?"
+27,"### Background
+Currently the testing steps in github actions do not have any overall timeouts. The total combined time of all the tests can become large. It could also significantly increase our openai cost. The idea of this PR is to try and add a reasonable overall timout to the testing step in our github workflow. Motivation for this PR is the third point in issue #2900 
+
+### Changes
+After looking at some f the recent ci.yml jobs in the project, I realised most of the testing jobs take around 1-3 mins of time. So, I've added a overall timeout of 10 minutes in testing job, whihch should be resonable enough for all our tests to finish and yet good enough to interrupt any malformed/misconfigured test runs. Thus making the openai costs somewhat predictable.
+
+### Documentation
+The change is self explanatory.
+
+### Test Plan
+Tried running an infinite loop in a test and verified that the timeout works as expected.
+
+### PR Quality Checklist
+- [ x] My pull request is atomic and focuses on a single change.
+- [ x] I have thoroughly tested my changes with multiple different prompts.
+- [ x] I have considered potential risks and mitigations for my changes.
+- [ x] I have documented my changes clearly and comprehensively.
+- [ x] I have not snuck in any ""extra"" small tweaks changes 
+"
+28,"<!-- ⚠️ At the moment any non-essential commands are not being merged.
+If you want to add non-essential commands to Auto-GPT, please create a plugin instead.
+We are expecting to ship plugin support within the week (PR #757).
+Resources:
+* https://github.com/Significant-Gravitas/Auto-GPT-Plugin-Template
+-->
+
+<!-- 📢 Announcement
+We've recently noticed an increase in pull requests focusing on combining multiple changes. While the intentions behind these PRs are appreciated, it's essential to maintain a clean and manageable git history. To ensure the quality of our repository, we kindly ask you to adhere to the following guidelines when submitting PRs:
+
+Focus on a single, specific change.
+Do not include any unrelated or ""extra"" modifications.
+Provide clear documentation and explanations of the changes made.
+Ensure diffs are limited to the intended lines — no applying preferred formatting styles or line endings (unless that's what the PR is about).
+For guidance on committing only the specific lines you have changed, refer to this helpful video: https://youtu.be/8-hSNHHbiZg
+
+By following these guidelines, your PRs are more likely to be merged quickly after testing, as long as they align with the project's overall direction. -->
+
+### Background
+<!-- Provide a concise overview of the rationale behind this change. Include relevant context, prior discussions, or links to related issues. Ensure that the change aligns with the project's overall direction. -->
+
+Issue #3042 states that memory pre-seeding is not possible within the docker container.
+
+### Changes
+<!-- Describe the specific, focused change made in this pull request. Detail the modifications clearly and avoid any unrelated or ""extra"" changes. -->
+
+Edited Dockerfile to include data_ingestion.py in container.
+
+### Documentation
+<!-- Explain how your changes are documented, such as in-code comments or external documentation. Ensure that the documentation is clear, concise, and easy to understand. -->
+
+One line comment in Dockerfile following local convention.
+
+### Test Plan
+<!-- Describe how you tested this functionality. Include steps to reproduce, relevant test cases, and any other pertinent information. -->
+
+Built & ran Dockerfile following documentation. Opened docker shell and ran data_ingestion.py, passing it a file within the workspace. ""Ingested Successfully""
+
+### PR Quality Checklist
+- [x] My pull request is atomic and focuses on a single change.
+- [x] I have thoroughly tested my changes with multiple different prompts.
+- [x] I have considered potential risks and mitigations for my changes.
+- [x] I have documented my changes clearly and comprehensively.
+- [x] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
+29,"<!-- ⚠️ At the moment any non-essential commands are not being merged.
+If you want to add non-essential commands to Auto-GPT, please create a plugin instead.
+We are expecting to ship plugin support within the week (PR #757).
+Resources:
+* https://github.com/Significant-Gravitas/Auto-GPT-Plugin-Template
+-->
+
+<!-- 📢 Announcement
+We've recently noticed an increase in pull requests focusing on combining multiple changes. While the intentions behind these PRs are appreciated, it's essential to maintain a clean and manageable git history. To ensure the quality of our repository, we kindly ask you to adhere to the following guidelines when submitting PRs:
+
+Focus on a single, specific change.
+Do not include any unrelated or ""extra"" modifications.
+Provide clear documentation and explanations of the changes made.
+Ensure diffs are limited to the intended lines — no applying preferred formatting styles or line endings (unless that's what the PR is about).
+For guidance on committing only the specific lines you have changed, refer to this helpful video: https://youtu.be/8-hSNHHbiZg
+
+By following these guidelines, your PRs are more likely to be merged quickly after testing, as long as they align with the project's overall direction. -->
+
+### Background
+<!-- Provide a concise overview of the rationale behind this change. Include relevant context, prior discussions, or links to related issues. Ensure that the change aligns with the project's overall direction. -->
+
+I found that `pymilvus` was removed in requirements for unknown reasons, for that,milvus unit test was skipped in workflow.
+And because of the lack of manual test and uint test after last change on #2127, a new bug was introduced.
+
+### Changes
+<!-- Describe the specific, focused change made in this pull request. Detail the modifications clearly and avoid any unrelated or ""extra"" changes. -->
+
+- Add `pymilvus` to requirements
+- Fix `milvus_memory_test.py`, only skip part of it when milvus memory backend is not ready on test environment. At least The code before connecting to the milvus backend can be covered by test.
+- fix new bug in `MilvusMemory` construction.
+
+### Documentation
+<!-- Explain how your changes are documented, such as in-code comments or external documentation. Ensure that the documentation is clear, concise, and easy to understand. -->
+
+### Test Plan
+<!-- Describe how you tested this functionality. Include steps to reproduce, relevant test cases, and any other pertinent information. -->
+
+- pass manually test
+- pass unit test in milvus ready environment.
+- pass unit test in zilliz cloud environment.
+- skip unit test in no milvus backend environment.
+
+### PR Quality Checklist
+- [x] My pull request is atomic and focuses on a single change.
+- [x] I have thoroughly tested my changes with multiple different prompts.
+- [x] I have considered potential risks and mitigations for my changes.
+- [x] I have documented my changes clearly and comprehensively.
+- [x] I have not snuck in any ""extra"" small tweaks changes <!-- Submit these as separate Pull Requests, they are the easiest to merge! -->
+
+<!-- If you haven't added tests, please explain why. If you have, check the appropriate box. If you've ensured your PR is atomic and well-documented, check the corresponding boxes. -->
+
+<!-- By submitting this, I agree that my pull request should be closed if I do not fill this out or follow the guidelines. -->
+"
