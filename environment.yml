@@ -1,8 +1,8 @@
 name: autogpt_DA
 
 dependencies:
-  - python=3.9
-  - numpy
-  - pandas
-  - nltk
-  - jupyterlab
+    - python=3.9
+    - numpy
+    - pandas
+    - nltk
+    - jupyterlab
