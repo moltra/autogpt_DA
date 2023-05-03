@@ -6,3 +6,7 @@ dependencies:
     - pandas
     - nltk
     - jupyterlab
+    - jupyterlab_code_formatter
+    - pip:
+      - black 
+      - isort

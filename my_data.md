@@ -1,4 +1,896 @@
 body
+"       Search for existing issues first   
+
+   X  I have searched the existing issues  and there is no existing issue for my problem
+
+    
+
+Windows
+
+    Which version of Auto GPT are you using 
+
+Latest Release
+
+    GPT 3 or GPT 4 
+
+GPT 3 5
+
+    Steps to reproduce  
+
+Run prompt commands and let it run in continuous  then it will hit an error for Missing  command  object in JSON
+
+ NEXT ACTION   COMMAND   Error  ARGUMENTS   Missing  command  object in JSON
+SYSTEM   Command Error  threw the following error  Missing  command  object in JSON
+Traceback  most recent call last  
+  File  C  Users keato anaconda3 lib runpy py   line 196  in  run module as main
+    return  run code code  main globals  None 
+  File  C  Users keato anaconda3 lib runpy py   line 86  in  run code
+    exec code  run globals 
+  File  C  PyPrograms Auto GPT autogpt   main   py   line 5  in  module 
+    autogpt cli main  
+  File  C  Users keato anaconda3 lib site packages click core py   line 1130  in   call  
+    return self main  args    kwargs 
+  File  C  Users keato anaconda3 lib site packages click core py   line 1055  in main
+    rv   self invoke ctx 
+  File  C  Users keato anaconda3 lib site packages click core py   line 1635  in invoke
+    rv   super   invoke ctx 
+  File  C  Users keato anaconda3 lib site packages click core py   line 1404  in invoke
+    return ctx invoke self callback    ctx params 
+  File  C  Users keato anaconda3 lib site packages click core py   line 760  in invoke
+    return   callback  args    kwargs 
+  File  C  Users keato anaconda3 lib site packages click decorators py   line 26  in new func
+    return f get current context     args    kwargs 
+  File  C  PyPrograms Auto GPT autogpt cli py   line 90  in main
+    run auto gpt 
+  File  C  PyPrograms Auto GPT autogpt main py   line 171  in run auto gpt
+    agent start interaction loop  
+  File  C  PyPrograms Auto GPT autogpt agent agent py   line 94  in start interaction loop
+    assistant reply   chat with ai 
+  File  C  PyPrograms Auto GPT autogpt llm chat py   line 166  in chat with ai
+    agent summary memory   update running summary 
+  File  C  PyPrograms Auto GPT autogpt memory management summary memory py   line 76  in update running summary
+    content dict   json loads event  content   
+  File  C  Users keato anaconda3 lib json   init   py   line 346  in loads
+    return  default decoder decode s 
+  File  C  Users keato anaconda3 lib json decoder py   line 337  in decode
+    obj  end   self raw decode s  idx  w s  0  end   
+  File  C  Users keato anaconda3 lib json decoder py   line 353  in raw decode
+    obj  end   self scan once s  idx 
+json decoder JSONDecodeError  Expecting property name enclosed in double quotes  line 8 column 5  char 1687  
+
+    Current behavior  
+
+Auto GPT fails out and throws error after processing multiple actions 
+
+    Expected behavior  
+
+Should continue running through prompts until it achieves its goals outlined 
+
+    Your prompt  
+
+   yaml
+ai goals 
+  Create a full length theatrical play script  properly formatted with character roles
+  and their dialogue  based on the coveted txt file in the workspace folder  which
+  highlights the gripping story of John the serial killer and Detective Mason in a
+  captivating plot that keeps the audience on the edge of their seats 
+  Develop rich and multidimensional characters  providing them with detailed backstories 
+  motives  and complex personalities that showcase their growth and development throughout
+  the play 
+  Employ skillful storytelling techniques  such as non linear timelines and dramatic
+  irony  to engage the audience s emotions and keep them invested in the story 
+  Incorporate themes of morality  justice  and conscience  reflecting the internal
+  struggles and ethical dilemmas faced by both the serial killer John and Detective
+  Mason in their respective quests 
+  Deliver a polished and compelling final draft of the script to ensure the production
+  team has all the necessary components to create a successful theatrical production 
+ai name  TPGPT
+ai role  a highly skilled AI playwright who specializes in crafting compelling and
+  thought provoking theatrical plays  based on the exciting and challenging story
+  of the serial killer John and Detective Mason  with deep character development and
+  cliffhanging flashbacks 
+api budget  0 0
+
+   
+
+
+    Your Logs  
+
+   log
+2023 05 02 14 02 53 302 ERROR logs  log 136 The JSON object is invalid  
+2023 05 02 14 03 45 487 ERROR logs  log 136 The JSON object is invalid  
+2023 05 02 14 20 16 260 ERROR logs  log 136 Error  The following AI output couldn t be converted to a JSON 
+  
+     thoughts    
+         text    Now we need to add a non linear timeline and dramatic irony to the script to keep the audience engaged and emotionally invested in the story   
+         reasoning    Adding a non linear timeline to the story can provide context  create suspense while dramatizing certain aspects of the story  This story element helps the audience understand the underlying drives of the characters and how their decision affected their various interactions  nDramatic irony helps in showing the unspoken truths of the characters and the audience as they wait for the unknowns to come true   
+         plan    I will add non linear elements to the script  including a scene that depicts the moment Mason s brother was killed  We will reveal these various scenes later in the play  We can build dramatic irony by having John showing up in places and being seen by the public without suspicion   
+         criticism    The non linear storytelling should not be over emphasized  and it must support the plot  The dramatic irony should be moderate  so the twists don t feel forced upon the audience   
+         speak    I recommend adding a non linear timeline to the script so that emotions and insights will unveil themselves gradually and reveal each character s growth  I suggest non linear actions for individuals and groups that appear innocuous but are quite impactful later on  I ll also add a scene that sheds light on Mason s internal strife  and the audience will discover later  Adding a touch of dramatic irony will keep the audience invested even when some of the outcomes are expected to occur in the future  which will make the story much more fun   
+      
+     command    
+         name    write to file  
+         args    
+             filename    play script txt  
+             text    Act 1 n nScene 1 nA group of kids are out late near an alley in downtown L A  They spot John and Amy a few feet away  nKid1   Hey  isn t that the dude everyone s talking about   nKid2   Who   nKid1   Him  the guy who s killing all the corrupt politicians and rich bad guys   nKid2   Why does he kill them   nKid1   He thinks he s the  Avenger   he thinks he s making things better   nKid2   What now   nJohn overhears the kids talking  nJohn   You shouldn t be up so late and speak on something you know nothing about  Before you go ahead and judge  think about what could have been their wrongs and how we are making everything right  You only see what we must do to save people who have no one to help them   nAmy   Come on  John  we have work to do   n nScene 2 nMason is talking to a receptionist nReceptionist   Detective  you have a call coming in  and it s urgent  Someone from the feds  office is calling   nMason   Tell them I m busy  I can t take any calls right now   nReceptionist   I understand  detective   nMason watches the receptionist and then walks towards the door  We see a flashback of the night Mason s brother died  nJohn   I m sorry for what happened to your brother  but have we not also suffered too    nMason   I m going to make sure that no one else ends up like my brother   n nScene 3 nTwo men at the bar talking to the bartender  The bartender s cleaning the counters and listening in  nMan 1   I heard the feds might shut down the operation any moment now   nMan 2   That ll be a sad day   nMan 1   You know how much money we ve made from this operation   nThe camera zooms in on the bartender s face  We see a somber look  nEnd Scene n nAct II n nScene 1 nMason s at home  looking out the window  He hears a sound coming from the backyard  As he s turning towards the backyard  his phone rings  nMason   Yeah   nJohn   Did you get the message I left behind   nMason   I want to end this before someone else gets hurt   nJohn   I m not gonna stop   n nScene 2 nA group of people are protesting and holding placards in front of John s house  There s a news crew outside  capturing all the action  nNews Anchor   The events that we have seen today are just a beginning  The city inhabitants have had enough of what they feel is corrupt justice  The real question is  how do we keep the message alive    nJohn  sitting in his house  watches the news reports and smiles  n nScene 3 nMason is investigating an abandoned warehouse in the outskirts of the city  where John s last known location was traced  He crawls under a metal sheet  hiding in the shadows  and scopes out the area  nMason s voiceover   This is it  This is where it ends  The killer s reign of terror is over   Thunder and lightning start  nDramatic Pause  nMason turns the corner and sees John  nJohn   Hello  Detective   nEnd Scene  n nAct III n nScene 1 nMason and John are fighting on the dock  Mason s at gunpoint  nJohn   You re no different  You re no different from the people we have been killing off   nMason points to the sky  nMason   There are some things that are still good in this world   nEnd Scene  
+         
+     
+ 
+2023 05 02 14 22 55 458 ERROR logs  log 136 The JSON object is invalid  
+   
+"
+"I had a PR approved for this some weeks ago  but I think it got lost the very same night against another PR that did a major refactor  I think it is an important point so I am proposing it again  feel free to approve or discard of course 
+
+    Background
+I noticed that if we re not on speak mode  what the assistant want to say gets lost because it is not logged to console  sometimes losing precious info
+
+    Changes
+I added an  else  so that if the assistant doesn t speak directly  because we re not in speak mode   at least it is printed to console like the rest of the output 
+
+    PR Quality Checklist
+   x  My pull request is atomic and focuses on a single change 
+   x  I have thoroughly tested my changes with multiple different prompts 
+   x  I have considered potential risks and mitigations for my changes 
+      I have documented my changes clearly and comprehensively 
+   x  I have not snuck in any  extra  small tweaks changes"
+"    Duplicates
+
+   X  I have searched the existing issues
+
+    Summary  
+
+When running  run sh  the script automatically install all dependencies with pip  This may mess up user s default python environment  In stead  the script should prompt user for agreement of installing the dependencies  so that user can decide whether to use an venv or conda environment to setup the environment for Auto GPT 
+
+    Examples  
+
+   
+    run sh
+The script is going to install Python dependencies with  usr bin pip  Proceed   y N   y
+ pip install    
+   
+
+
+    Motivation  
+
+I like to keep my default python environment simple  with only the most used packages  For all other specific projects I will create venv or conda env to avoid version conflicts and all other weird conflicts in development environments  This is a good practice  User should be aware of what the script may do when they run  run sh "
+"divide docker mode and venv mode for python execution
+
+        At the moment any non essential commands are not being merged 
+If you want to add non essential commands to Auto GPT  please create a plugin instead 
+We are expecting to ship plugin support within the week  PR  757  
+Resources 
+  https   github com Significant Gravitas Auto GPT Plugin Template
+   
+
+       Announcement
+We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
+
+Focus on a single  specific change 
+Do not include any unrelated or  extra  modifications 
+Provide clear documentation and explanations of the changes made 
+Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
+For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
+
+By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
+
+    Background
+To run execute python file  which is currently built into autogpt  user needs to install docker and create docker image separately  which you feel is unnecessary and unreasonable   I watched multiple issues because of this  for example  92  1896  
+It is likely to be a difficult task for beginners or those who are not familiar with Docker use 
+
+    Changes
+Therefore  in python execution  the venv mode and the Docker mode were separated and implemented so that the user could choose how to execute the code in the  env file 
+
+    Documentation
+Relevant information is annotated in code as comments
+
+    Test Plan
+Same environment  I tested docker mode legacy  and venv mode and they work same 
+
+    PR Quality Checklist
+   v   My pull request is atomic and focuses on a single change 
+   v   I have thoroughly tested my changes with multiple different prompts 
+   v   I have considered potential risks and mitigations for my changes 
+   v   I have documented my changes clearly and comprehensively 
+   v   I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
+
+     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
+
+     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
+"
+"    Background
+A lot of times agents come up with arguments against the list files   function  former search files  which are not accepted  this makes the agent end up in a loop  not finding anything but an error 
+
+    Changes
+While a lot of times the args are just a replacement of the original  filename  argument i ve also seen extension as an argument  with literally an   ext  as search query 
+
+I changed the function to accept all  although it might be better to take care of this on the agent side which makes up all the arguments  but in the meantime I couldn t take it anymore   
+
+    Documentation
+Mainly in code comments 
+
+directory  str   The directory to search in
+extension  str  optional   The file extension to filter by  If provided  all other arguments except  directory  and  keywords  will be ignored  Defaults to None 
+filename  str  optional   A partial file name to filter by  If provided and  extension  is not  all other arguments except  directory  will be ignored  Defaults to None 
+query  str  optional   A query to filter by  If provided and  extension  and  filename  are not  all other arguments except  directory  will be ignored  Defaults to None 
+filename query  str  optional   A query to filter file names by  If provided and  extension    filename   and  query  are not  all other arguments except  directory  will be ignored  Defaults to None 
+filename substring  str  optional   A substring to filter file names by  If provided and  extension    filename    query   and  filename query  are not  all other arguments except  directory  will be ignored  Defaults to None 
+keywords  list str   optional   A list of keywords to filter by  If provided and  extension    filename    query    filename query   and  filename substring  are not   extension  will be appended to each keyword before filtering  Defaults to None 
+
+
+    Test Plan
+Tested for a week with continuously changing file and creating file goals and I haven t seen an error or stall since 
+
+    PR Quality Checklist
+   x  My pull request is atomic and focuses on a single change 
+   x  I have thoroughly tested my changes with multiple different prompts 
+   x  I have considered potential risks and mitigations for my changes 
+   x  I have documented my changes clearly and comprehensively 
+   x  I have not snuck in any  extra  small tweaks changes
+"
+"To be able to set a fixed ai name  ai role and the option to have goals set fixed  that will either be prepended to the yaml goals  or appended to the yaml goals  or will overrule the yaml configured goals 
+
+    Background
+The option to be able to choose the way of setting the ai name  role and or goals through either the env variables or through the terminal has it s benefits  Especially when testing a lot  I found that setting the goals fixed in the  env file has pro s as I am 100  sure they are set according to plan  The ability to either prepend or append them and the overrule the ai sttings yaml for the goals are also included 
+
+    Changes
+The ability to either prepend or append GOALS and to overrule the ai settings yaml are included in this change 
+
+    Documentation
+In code comments are at the  load  function in ai config py and documentation with the settings in the  env template file 
+
+    Test Plan
+I tested this by adding goals  ai name and role in the env file and launch auto GPT  it either prepends appends the goals and respects the goals from the ai settings yaml file  Or when ENV GOALS ONLY True it ignores the goals from the ai settings yaml and only uses the goals as set in the  env file 
+
+    PR Quality Checklist
+   x  My pull request is atomic and focuses on a single change 
+   x  I have thoroughly tested my changes with multiple different prompts 
+   x  I have considered potential risks and mitigations for my changes 
+   x  I have documented my changes clearly and comprehensively 
+   x  I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
+"
+"       Search for existing issues first   
+
+   X  I have searched the existing issues  and there is no existing issue for my problem
+
+    
+
+MacOS
+
+    Which version of Auto GPT are you using 
+
+Latest Release
+
+    GPT 3 or GPT 4 
+
+GPT 3 5
+
+    Steps to reproduce  
+
+I gave it a research task and it got stuck trying to read text summary from a file 
+ Research the pros and cons of the recent porn ban in Utah 
+
+  Screen Shot 2023 05 02 at 1 14 04 PM  https   user images githubusercontent com 1424113 235775656 bb8b391b aff6 475a a7ae d15b6876398f png 
+
+
+    Current behavior  
+
+
+  Screen Shot 2023 05 02 at 1 14 04 PM  https   user images githubusercontent com 1424113 235775656 bb8b391b aff6 475a a7ae d15b6876398f png 
+
+Tries to read a file but gets invalid URL
+
+    Expected behavior  
+
+I would expect it to understand it s a file and not a web URL
+
+    Your prompt  
+
+   yaml
+  Paste your prompt here
+   
+
+
+    Your Logs  
+
+   log
+ insert your logs here 
+   "
+"Running a default version of stable branch with the basic plugins installed  only bing  wikipedia and twitter enabled throug  env   bing without any credentials 
+
+This is the result 
+
+   
+NEXT ACTION   COMMAND   google search ARGUMENTS     query    recent news articles related to the stock market  
+SYSTEM   Command google search returned  Unknown command  google search   Please refer to the  COMMANDS  list for available commands and only respond in the specified JSON format 
+   "
+"A simple  if any  to be able to set disallowed shell commands in the  env
+
+        At the moment any non essential commands are not being merged 
+If you want to add non essential commands to Auto GPT  please create a plugin instead 
+We are expecting to ship plugin support within the week  PR  757  
+Resources 
+  https   github com Significant Gravitas Auto GPT Plugin Template
+   
+
+       Announcement
+We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
+
+Focus on a single  specific change 
+Do not include any unrelated or  extra  modifications 
+Provide clear documentation and explanations of the changes made 
+Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
+For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
+
+By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
+
+    Background
+Many times I encountered an agent getting stuck when starting a GUI application like vi or nano via the execute shell command  Resulting in auto GPT waiting endlessly until I either killed the command through another terminal session or I had to completely abandon the session with CTRL C 
+
+The GUI applications nano and vi or gedit are unnecessary as auto GPT has the write to file and append to file commands to take care of that 
+
+    Changes
+To be able to set the disallowed commands  I added the parameter  DISALLOWED COMMANDS  to the  env template 
+
+    Documentation
+In the  env file you can set the DISALLOWED COMMANDS  comma separated like DISALLOWED COMMANDS nano vi gedit
+
+The variable DISALLOWED COMMANDS can contain commands with spaces  The code that checks for disallowed commands isn t designed to handle complex commands with arguments  it s just looking for specific command names in the input string  If we need to handle complex commands  we may need a more sophisticated approach 
+
+    Test Plan
+Tested with various goals which might triggered commands that we want to disallow  like nano  vi  gedit 
+
+    PR Quality Checklist
+   x  My pull request is atomic and focuses on a single change 
+   x  I have thoroughly tested my changes with multiple different prompts 
+   x  I have considered potential risks and mitigations for my changes 
+   x  I have documented my changes clearly and comprehensively 
+   x  I have not snuck in any  extra  small tweaks changes
+"
+"Add missing scripts folder   and missing plugins folder  Scripts check for plugin deps doesn t appear to check if the plugins directory exists or not  so would fail  Easily overlooked this as the dev build includes everything     not just the AGPT folder 
+
+ x  Include Scripts folder in non dev container builds
+ x  Include Plugins folder in non dev container builds
+
+"
+"       Search for existing issues first   
+
+   X  I have searched the existing issues  and there is no existing issue for my problem
+
+    
+
+MacOS
+
+    Which version of Auto GPT are you using 
+
+Stable  branch 
+
+    GPT 3 or GPT 4 
+
+GPT 3 5
+
+    Steps to reproduce  
+
+This can be reproduced anytime AutoGPT tries to write to a file in my workspace using absolute path 
+
+ I want Auto GPT to  Get the top 5 trending news articles about UFOs and Aliens 
+
+    Current behavior  
+
+I get an error 
+ Attempted to access absolute path   Users stefanayala Auto GPT autogpt auto gpt workspace  in workspace   Users stefanayala Auto GPT autogpt auto gpt workspace   
+
+Which im confused because even though it s an absolute path  it s a valid one in the workspace
+
+I then tell it to use a relative path and it s fine  though it creates another workspace directory relative to it s own lol 
+
+   
+  Error 
+  Attempted to access absolute path   Users stefanayala Auto GPT autogpt auto gpt workspace  in workspace   Users stefanayala Auto GPT autogpt auto gpt workspace    
+NEXT ACTION   COMMAND   list files ARGUMENTS     directory     Users stefanayala Auto GPT autogpt auto gpt workspace   
+  Enter  y  to authorise command   y  N  to run N continuous commands   s  to run self feedback commands n  to exit program  or enter feedback for    
+  Asking user via keyboard   
+Input use relative path to workspace then
+SYSTEM   Human feedback  use relative path to workspace then
+ THOUGHTS   I will use a relative path to the workspace directory to check the file path for the Node js script 
+REASONING   Using a relative path to the workspace directory will allow me to check the file path for the Node js script without having to specify the full file path 
+PLAN 
+   Use a relative path to the workspace directory to check the file path for the Node js script 
+   If the file path is incorrect  update it and try running the script again 
+CRITICISM   I should have used a relative path to the workspace directory from the beginning 
+  NEXT ACTION   COMMAND   list files ARGUMENTS     directory     Users stefanayala Auto GPT autogpt auto gpt workspace auto gpt workspace    
+   
+
+
+
+    Expected behavior  
+
+I expect it to not throw an error if the absolute path is attempting to access my workspace
+
+    Your prompt  
+
+   yaml
+  Paste your prompt here
+   
+
+
+    Your Logs  
+
+   log
+ insert your logs here 
+   
+"
+"       Search for existing issues first   
+
+   X  I have searched the existing issues  and there is no existing issue for my problem
+
+    
+
+Docker
+
+    Which version of Auto GPT are you using 
+
+Stable  branch 
+
+    GPT 3 or GPT 4 
+
+GPT 3 5
+
+    Steps to reproduce  
+
+Distributor ID  Ubuntu
+Description     Ubuntu 20 04 6 LTS
+Release         20 04
+Codename        focal
+
+Docker version 23 0 5  build bc4487a
+
+  docker pull significantgravitas auto gpt
+
+REPOSITORY                     TAG       IMAGE ID       CREATED       SIZE
+significantgravitas auto gpt   latest    a1e88fe207ec   3 hours ago   1 65GB
+redis redis stack server       latest    0021013ed7f6   8 days ago    329MB
+
+
+    Current behavior  
+
+Traceback  most recent call last  
+  File   usr local lib python3 10 runpy py   line 196  in  run module as main
+    return  run code code  main globals  None 
+  File   usr local lib python3 10 runpy py   line 86  in  run code
+    exec code  run globals 
+  File   app autogpt   main   py   line 5  in  module 
+    autogpt cli main  
+  File   usr local lib python3 10 site packages click core py   line 1130  in   call  
+    return self main  args    kwargs 
+  File   usr local lib python3 10 site packages click core py   line 1055  in main
+    rv   self invoke ctx 
+  File   usr local lib python3 10 site packages click core py   line 1635  in invoke
+    rv   super   invoke ctx 
+  File   usr local lib python3 10 site packages click core py   line 1404  in invoke
+    return ctx invoke self callback    ctx params 
+  File   usr local lib python3 10 site packages click core py   line 760  in invoke
+    return   callback  args    kwargs 
+  File   usr local lib python3 10 site packages click decorators py   line 26  in new func
+    return f get current context     args    kwargs 
+  File   app autogpt cli py   line 87  in main
+    from autogpt main import run auto gpt
+  File   app autogpt main py   line 22  in  module 
+    from scripts install plugin deps import install plugin dependencies
+ModuleNotFoundError  No module named  scripts 
+
+
+    Expected behavior  
+
+ No response 
+
+    Your prompt  
+
+   yaml
+  Paste your prompt here
+   
+
+
+    Your Logs  
+
+   log
+ insert your logs here 
+   
+"
+"        At the moment any non essential commands are not being merged 
+If you want to add non essential commands to Auto GPT  please create a plugin instead 
+We are expecting to ship plugin support within the week  PR  757  
+Resources 
+  https   github com Significant Gravitas Auto GPT Plugin Template
+   
+
+       Announcement
+We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
+
+Focus on a single  specific change 
+Do not include any unrelated or  extra  modifications 
+Provide clear documentation and explanations of the changes made 
+Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
+For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
+
+By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
+
+    Background
+     Provide a concise overview of the rationale behind this change  Include relevant context  prior discussions  or links to related issues  Ensure that the change aligns with the project s overall direction     
+Allow creating cassettes in ci pipeline
+    Changes
+     Describe the specific  focused change made in this pull request  Detail the modifications clearly and avoid any unrelated or  extra  changes     
+
+    Documentation
+     Explain how your changes are documented  such as in code comments or external documentation  Ensure that the documentation is clear  concise  and easy to understand     
+
+    Test Plan
+     Describe how you tested this functionality  Include steps to reproduce  relevant test cases  and any other pertinent information     
+
+    PR Quality Checklist
+   x  My pull request is atomic and focuses on a single change 
+   x  I have thoroughly tested my changes with multiple different prompts 
+   x  I have considered potential risks and mitigations for my changes 
+   x  I have documented my changes clearly and comprehensively 
+   x  I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
+
+     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
+
+     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
+"
+"        At the moment any non essential commands are not being merged 
+If you want to add non essential commands to Auto GPT  please create a plugin instead 
+We are expecting to ship plugin support within the week  PR  757  
+Resources 
+  https   github com Significant Gravitas Auto GPT Plugin Template
+   
+
+       Announcement
+We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
+
+Focus on a single  specific change 
+Do not include any unrelated or  extra  modifications 
+Provide clear documentation and explanations of the changes made 
+Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
+For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
+
+By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
+
+    Background
+     Provide a concise overview of the rationale behind this change  Include relevant context  prior discussions  or links to related issues  Ensure that the change aligns with the project s overall direction     
+ Use stable not master  is still valid advice  but it should be less shouty 
+
+    Changes
+     Describe the specific  focused change made in this pull request  Detail the modifications clearly and avoid any unrelated or  extra  changes     
+
+    Documentation
+     Explain how your changes are documented  such as in code comments or external documentation  Ensure that the documentation is clear  concise  and easy to understand     
+
+    Test Plan
+     Describe how you tested this functionality  Include steps to reproduce  relevant test cases  and any other pertinent information     
+
+    PR Quality Checklist
+   x  My pull request is atomic and focuses on a single change 
+      I have thoroughly tested my changes with multiple different prompts 
+      I have considered potential risks and mitigations for my changes 
+   x  I have documented my changes clearly and comprehensively 
+   x  I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
+
+     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
+
+     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
+"
+"        At the moment any non essential commands are not being merged 
+If you want to add non essential commands to Auto GPT  please create a plugin instead 
+We are expecting to ship plugin support within the week  PR  757  
+Resources 
+  https   github com Significant Gravitas Auto GPT Plugin Template
+   
+
+       Announcement
+We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
+
+Focus on a single  specific change 
+Do not include any unrelated or  extra  modifications 
+Provide clear documentation and explanations of the changes made 
+Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
+For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
+
+By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
+
+    Background
+     Provide a concise overview of the rationale behind this change  Include relevant context  prior discussions  or links to related issues  Ensure that the change aligns with the project s overall direction     
+It s a nice idea to put all the code that needs to be run in the bash should be in the  bash  code block in the markdown file  Therefore  added a bash code block in the markdown file 
+
+    Changes
+     Describe the specific  focused change made in this pull request  Detail the modifications clearly and avoid any unrelated or  extra  changes     
+Simply added a bash block in the existing CONTRIBUTING md
+
+    Documentation
+     Explain how your changes are documented  such as in code comments or external documentation  Ensure that the documentation is clear  concise  and easy to understand     
+
+    Test Plan
+     Describe how you tested this functionality  Include steps to reproduce  relevant test cases  and any other pertinent information     
+Since  its a simple markdown change  No need to write tests 
+
+    PR Quality Checklist
+   x  My pull request is atomic and focuses on a single change 
+   x  I have documented my changes clearly and comprehensively 
+
+
+     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
+My changes are simply in markdown  Therefore  not adding tests 
+
+     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
+"
+"    Duplicates
+
+   X  I have searched the existing issues
+
+    Summary  
+
+I had a call this morning with  Pwuts and  ntindle  They reached out to ask about adding error reporting using  Sentry  https   sentry io welcome    disclosure  my employer   Sentry offers  free SaaS for open source projects  https   sentry io for open source    though there are volume limits  working to determine these  will follow up with details when I have them  
+
+The reason to add error reporting is to be able to find out about bugs in the software without having to wait for users to report them manually  This is a key enabler of shipping high quality software 
+
+Rough sketch 
+
+1  Sign up on https   sentry io for open source  
+1  Add a consent prompt  Prompt once on first run then save in env  will require some refactoring   Consent should be broad to allow for additional info collection in future  e g   performance data  without re prompting  Here s  an example from Sentry s own self hosted installer  https   github com getsentry self hosted blob 23 4 0 install error handling sh  
+1  How do we prevent or distinguish reports from forks vs  reports from the main project  App already checks for  stable  branch on startup  can extend to check repo  What about release artifacts though  Much less likely to be coming from a fork in a release artifact  so all release artifacts can send 
+1   Add Sentry  https   docs sentry io platforms python   to existing error handling   example  https   github com Significant Gravitas Auto GPT blob b5f95fd672868256754b7dc53e18f84b7173770f autogpt agent agent py L243 L245    Unhandled exceptions should be reported to Sentry by default out of the box 
+1  Add logfile attachments  observing  attachment size limits  https   develop sentry dev sdk envelopes  size limits   tail  c  compress   
+1  Return a URL or ID for users to use when opening up bug reports  to tie their report to the report in Sentry 
+1   Breadcrumbs  https   docs sentry io product issues issue details breadcrumbs   
+1   Releases  https   docs sentry io product releases   
+
+    Examples  
+
+Here s  an example from Sentry s own self hosted installer  https   github com getsentry self hosted blob 23 4 0 install error handling sh  
+
+    Motivation  
+
+The reason to add error reporting is to be able to find out about bugs in the software without having to wait for users to report them manually  This is a key enabler of shipping high quality software "
+"       Search for existing issues first   
+
+   X  I have searched the existing issues  and there is no existing issue for my problem
+
+    
+
+MacOS
+
+    Which version of Auto GPT are you using 
+
+Master  branch 
+
+    GPT 3 or GPT 4 
+
+GPT 3 5
+
+    Steps to reproduce  
+
+I m currently working on building out a plugin to incorporate the Shopify Python API  shopifyapi  into AutoGPT  I ve tried adding it to the requirements file and reinstalling them and I can t seem to get AutoGPT to recognize the module  Are there more steps I need to do to allow AutoGPT to recognize it as a module apart from it being already installed 
+
+To reproduce 
+
+Running on master branch 
+
+Im executing the shopify api py in the workspaces folder from AutoGPT and keep getting the following error 
+   
+
+Executing file   Auto GPT autogpt auto gpt workspace shopify api py 
+Image  python 3 alpine  found locally
+SYSTEM   Command execute python file returned  Traceback  most recent call last   File   workspace shopify api py   line 3  in  module  import shopify ModuleNotFoundError  No module named  shopify 
+   
+
+I ve tried to work with this for almost 12 hours at this point  I d like to turn it into a plugin for the git once I finish setting it up but I ve ran into a wall with this error
+
+   yaml
+   Library Frameworks Python framework Versions 3 11 bin python3 11
+
+import shopify
+import code
+import sys
+import os
+import os path
+import glob
+import subprocess
+import functools
+import yaml
+import six
+from six moves import input  map
+
+
+def start interpreter   variables  
+      add the current working directory to the sys paths
+    sys path append os getcwd   
+    console   type  shopify     shopify version VERSION   code InteractiveConsole  object      
+    import readline
+
+    console variables  interact  
+   
+
+
+    Current behavior  
+
+    
+NEXT ACTION   COMMAND   execute python file ARGUMENTS     filename     Auto GPT autogpt auto gpt workspace shopify api py  
+Enter  y  to authorise command   y  N  to run N continuous commands   s  to run self feedback commands n  to exit program  or enter feedback for    
+Asking user viay                                                                                                COMMAND AUTHORISED BY USER                
+Executing file   Auto GPT autogpt auto gpt workspace shopify api py 
+Image  python 3 alpine  found locally
+SYSTEM   Command execute python file returned  Traceback  most recent call last   File   workspace shopify api py   line 3  in  module  import shopify ModuleNotFoundError  No module named  shopify 
+more here  https   significant gravitas github io Auto GPT setup  getting an api key
+ THOUGHTS   It looks like the  shopify  module is not installed  We can use the  google  command to search for instructions on how to install the  shopify  module 
+
+NEXT ACTION   COMMAND   execute python file ARGUMENTS     filename     Auto GPT autogpt auto gpt workspace check python version py  
+Enter  y  to authorise command   y  N  to run N continuous commands   s  to run self feedback commands n  to exit program  or enter feedback for    
+Asking user via keyboard   
+Input y
+               COMMAND AUTHORISED BY USER                
+Executing file   Auto GPT autogpt auto gpt workspace check python version py 
+Image  python 3 alpine  found locally
+SYSTEM   Command execute python file returned  Python 3 11 3
+ THOUGHTS   Now that we know the version of Python that AutoGPT is running on  we can proceed with installing the  shopify  module using the appropriate command for the version of Python 
+REASONING   Knowing the version of Python that AutoGPT is running on will allow us to use the appropriate command to install the  shopify  module and ensure that it is compatible with the version of Python we are using 
+PLAN  
+   Use the appropriate command to install the  shopify  module for the version of Python that AutoGPT is running on
+CRITICISM   I need to make sure that I am using the correct command to install the  shopify  module and that it is compatible with the version of Python we are using 
+NEXT ACTION   COMMAND   execute python file ARGUMENTS     filename     Auto GPT autogpt auto gpt workspace install shopify module py  
+
+
+   
+
+    Expected behavior  
+
+I d expect it to import the module but I m thinking because its not one of the original requirements It won t recognize it as a module  It works locally just fine so I know the Shopify installation worked on my computer  it s just not recognized by AutoGPT  This is how it responds on my local machine 
+
+   
+The default interactive shell is now zsh 
+To update your account to use zsh  please run  chsh  s  bin zsh  
+For more details  please visit https   support apple com kb HT208050 
+ base  Ethans MBP 4     shopify api py console
+using livingelevated myshopify com
+Python 3 11 3  v3 11 3 f3909b8bc8  Apr  4 2023  20 12 10   Clang 13 0 0  clang 1300 0 29 30   on darwin
+Type  help    copyright    credits  or  license  for more information 
+ shopify 12 3 0 
+    help object 
+Help on class object in module builtins 
+
+class object
+    The base class of the class hierarchy 
+    
+    When called  it accepts no arguments and returns a new featureless
+    instance that has no instance attributes and cannot be given any 
+    
+    Built in subclasses 
+        anext awaitable
+        async generator
+        async generator asend
+        async generator athrow
+            and 88 other subclasses
+    
+    Methods defined here 
+    
+      delattr   self  name    
+        Implement delattr self  name  
+    
+      dir   self    
+        Default dir   implementation 
+    
+      eq   self  value    
+        Return self  value 
+    
+      format   self  format spec    
+        Default object formatter 
+    
+      ge   self  value    
+        Return self  value 
+    
+      getattribute   self  name    
+        Return getattr self  name  
+    
+      getstate   self    
+        Helper for pickle 
+    
+      gt   self  value    
+        Return self value 
+    
+      hash   self    
+        Return hash self  
+    
+      init   self      args    kwargs 
+        Initialize self   See help type self   for accurate signature 
+    
+      le   self  value    
+        Return self  value 
+    
+      lt   self  value    
+        Return self value 
+    
+   
+
+    Your prompt  
+
+ No response 
+
+    Your Logs  
+
+ No response "
+"        At the moment any non essential commands are not being merged 
+If you want to add non essential commands to Auto GPT  please create a plugin instead 
+We are expecting to ship plugin support within the week  PR  757  
+Resources 
+  https   github com Significant Gravitas Auto GPT Plugin Template
+   
+
+       Announcement
+We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
+
+Focus on a single  specific change 
+Do not include any unrelated or  extra  modifications 
+Provide clear documentation and explanations of the changes made 
+Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
+For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
+
+By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
+
+    Background
+     Provide a concise overview of the rationale behind this change  Include relevant context  prior discussions  or links to related issues  Ensure that the change aligns with the project s overall direction     
+smaller Pr following  https   github com Significant Gravitas Auto GPT pull 3605 files diff 1f23604ba9f877833b8d0573f1917f109af777a47703b5eac164d6e356b6eedd
+    Changes
+     Describe the specific  focused change made in this pull request  Detail the modifications clearly and avoid any unrelated or  extra  changes     
+
+    Documentation
+     Explain how your changes are documented  such as in code comments or external documentation  Ensure that the documentation is clear  concise  and easy to understand     
+
+    Test Plan
+     Describe how you tested this functionality  Include steps to reproduce  relevant test cases  and any other pertinent information     
+
+    PR Quality Checklist
+   x  My pull request is atomic and focuses on a single change 
+   x  I have thoroughly tested my changes with multiple different prompts 
+   x  I have considered potential risks and mitigations for my changes 
+   x  I have documented my changes clearly and comprehensively 
+   x  I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
+
+     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
+
+     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
+"
+"    Background
+Fourth PR in the chain to organize the LLM interaction   See 
+   3191 
+   3436 
+   3486 
+
+In a previous PR  I extracted a retry decorator from the embedding calls   This PR uses the same retry decorator on an extracted call to create chat completions from the OpenAI API   
+
+
+    Changes
+  APIManager now only manages API budgets   Will be renamed and updated to use LLM structs in the next PR 
+   autogpt llm llm utils retry openai api  moved to  autogpt llm providers openai retry api 
+  Low level API methods for creating embeddings and chat completions have been extracted to  autogpt llm providers openai  and have been appropriately decorated to consistently handle API failure cases 
+   autogpt llm llm utils create chat completion  refactored to use low level wrapped api calls and update the budget manually 
+  Move retry handler tests from  tests unit test llm utils  to  tests unit test openai 
+
+    Documentation
+N A  this is primarily code motion
+
+    Test Plan
+N A this is primarily code motion and the code in question has unit tests 
+
+
+    PR Quality Checklist
+   X  My pull request is atomic and focuses on a single change 
+   X  I have thoroughly tested my changes with multiple different prompts 
+   X  I have considered potential risks and mitigations for my changes 
+   X  I have documented my changes clearly and comprehensively 
+   X  I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
+
+     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
+
+     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
+"
 "        At the moment any non essential commands are not being merged 
 If you want to add non essential commands to Auto GPT  please create a plugin instead 
 We are expecting to ship plugin support within the week  PR  757  
@@ -97,51 +989,6 @@ Can t get that as my Docker container using  rm deletes itself when stopped
  insert your logs here 
    
 Can t get that as my Docker container using  rm deletes itself when stopped"
-"
-
-        At the moment any non essential commands are not being merged 
-If you want to add non essential commands to Auto GPT  please create a plugin instead 
-We are expecting to ship plugin support within the week  PR  757  
-Resources 
-  https   github com Significant Gravitas Auto GPT Plugin Template
-   
-
-       Announcement
-We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
-
-Focus on a single  specific change 
-Do not include any unrelated or  extra  modifications 
-Provide clear documentation and explanations of the changes made 
-Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
-For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
-
-By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
-
-    Background
-     Provide a concise overview of the rationale behind this change  Include relevant context  prior discussions  or links to related issues  Ensure that the change aligns with the project s overall direction     
-When following the Install instruction it is necessary to add the concrete version tag yourself when pulling the docker image  as the Docker Image is not  yet  tagged with latest stable properly 
-
-    Changes
-     Describe the specific  focused change made in this pull request  Detail the modifications clearly and avoid any unrelated or  extra  changes     
-Used 0 2 2 as an example  but added a hint to check yourself on DockerHub which is the most recent version
-
-    Documentation
-     Explain how your changes are documented  such as in code comments or external documentation  Ensure that the documentation is clear  concise  and easy to understand     
-
-    Test Plan
-     Describe how you tested this functionality  Include steps to reproduce  relevant test cases  and any other pertinent information     
-
-    PR Quality Checklist
-   X  My pull request is atomic and focuses on a single change 
-      I have thoroughly tested my changes with multiple different prompts 
-      I have considered potential risks and mitigations for my changes 
-      I have documented my changes clearly and comprehensively 
-   X  I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
-
-     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
-
-     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
-"
 "Updating to encourage the user to build a virtual environment first 
 
         At the moment any non essential commands are not being merged 
@@ -212,194 +1059,6 @@ I have tested with existing tests and local manual testing  Existing tests cover
     No new tests
   Existing tests cover this change 
   Additionally  the Config singleton would be affected  which could lead to other tests failing "
-"     https   i ibb co KbyNPB4 indobet gif    https   urlink id oQGDZ 
-
-IndoBet   Situs Slot Pulsa Tanpa Potongan Terpercaya Login IndoBet Gacor Mania
-                                                                              
-
-Sekarang ini permainan  Slot Pulsa Tanpa Potongan terpercaya     bukan hal pemali di kelompok masyarakat  karena telah banyak orang di Indonesia yang bermain Slot Pulsa Tanpa Potongan tiap hari  Hal tersebut terjadi karena cuma bermain IndoBet saja dapat raih keuntungan untuk semuanya orang memainkan  Cuma bermain slot88 login  seluruh pemain memiliki hak memperoleh keuntungan berbentuk jekpot slot88 dengan hadiah uang kontan capai juta an rupiah  Selanjutnya bermain Slot Pulsa Tanpa Potongan terpercaya benar benar gampang untuk dimainkan lewat handphone apapun itu seperti smartphone  netbook  tablet dan PC  tersebut jadikan beberapa slotter secara mudah bermain Slot Pulsa Tanpa Potongan terpercaya 
-
-Untuk memuat apresiasi warga ingin bermain slot88  karena itu IndoBet datang secara beragam bonus besar dan situs judi Slot Pulsa Tanpa Potongan gacor mania terpercaya dan dewa slot88 IndoBet terbaik Indonesia secara bersertifikasi sah dengan standar internasional  Lisensi internasional diartikan yakni PAGCOR  iTech Labs  BMM Testlabs  Gaming Labs Certified  Malta Gaming Authority dan Gambling Commission di mana memiliki pekerjaan memantau dan memayungi semua mekanisme situs judi Slot Pulsa Tanpa Potongan terpercaya IndoBet dan agen slot88 login terbaik  Karena ada lisensi membuat beberapa slotter dapat yakin pada kami IndoBet bermain main dengan adil dan tenang karena telah dengan kawalan super ketat 
-
-Situs IndoBet memiliki lebih dari 400 games IndoBet  dengan banyak tersedia permainan IndoBet beberapa bettor bisa pilih sesuai ketertarikan kalian  Selainnya mempunyai games dewa slot88  IndoBet memiliki RTP live slot88 terupdate sehari harinya  Oleh karena itu IndoBet sebagai situs nomor 1 Indonesia 
-
-Sejarah Mengembangnya Permainan Slot Pulsa Tanpa Potongan di Indonesia
-                                                                      
-
-Pada jaman dulu saat sebelum  games Slot Pulsa Tanpa Potongan     populer seperti saat ini  sebelumnya games Slot Pulsa Tanpa Potongan terbaik dimainkan memakai mesin slot ada tuas penariknya di seginya berperan sebagai pengaktif generator pengacaknya  Mesin slot88 itu ada gulungang berputar putar saat kalian menarik tuas selanjutnya akan stop memperlihatkan gambar sama semua gulungan tersebut  Games slot simpel itu jadikan tempat ramai karena cukup jadi selingan masyarakat amerika serikat saat tersebut 
-
-Sampai sekarang ini sudah mengembangnya games slot88 online mania lumayan cepat jadi games Slot Pulsa Tanpa Potongan di mana sekarang ini tehnologi sangat hebat karena segalanya serba online saat ini  Gampangnya menyebar info itu mempermudah games Slot Pulsa Tanpa Potongan bisa dijangkau di penjuru dunia terutamanya Indonesia  Jumlah pecinta games Slot Pulsa Tanpa Potongan semakin bertambah sehari harinya  karena telah gampang mengaksesnya oleh warga hingga banyak bermain Slot Pulsa Tanpa Potongan 
-
-Info Penting Mengenai Situs Judi Slot Pulsa Tanpa Potongan Terbaik 2023
-                                                                       
-
-Saat sebelum tergabung dan lakukan register anda sebaiknya pahami terlebih dahulu info mengenai  situs judi Slot Pulsa Tanpa Potongan     super gacor mania yang hendak dimainkan  Info penting yang perlu kalian kenali seperti berapakah minimum deposit   Games gacor apa yang ada   Info singkat itu menjadi dasar anda untuk lakukan register di situs itu  Kelebihan yang terdapat dapat jadikan fondasi anda untuk mendaftarkan di situs judi Slot Pulsa Tanpa Potongan terbaik  Berikut sebagai info penting mengenai IndoBet situs judi Slot Pulsa Tanpa Potongan terpercaya 2022  
-
-Jumlahnya opsi Slot Pulsa Tanpa Potongan terbaik dapat kalian memainkan pada situs IndoBet  Semua provider terkenal telah bekerja bersama dengan IndoBet  Hingga permainan Slot Pulsa Tanpa Potongan terbaik super gacor terbaik  IndoBet bisa langsung menyiapkannya untuk kamu  Macam perjudian slot 77 online dapat kalian dapatkan di Indonesia lewat IndoBet  Berikut sebagai kelompok provider situs judi Slot Pulsa Tanpa Potongan terbaik 
-
-    Slot Pulsa Tanpa Potongan Pragmatic Play
-
-Bila anda ketahui Sweet Bonanza dan Gates of Olympus  itu sebagai slot pragmatic play terbaik  Dalam mendatangkan golden games Slot Pulsa Tanpa Potongan terbaik  provider perjudian Slot Pulsa Tanpa Potongan pragmatic play sebagai terbaik 
-
-    Slot Pulsa Tanpa Potongan Slot88
-
-Beberapa permainan super slot88 selalu mempunyai serunya masing masing lewat diagram rollnya  Ide permainan login slot88 online sangat menarik menjadi selalu memprioritaskan kelebihannya ada banyak permainan super slot88 populer seperti Slot 88 fortune  Dragon slot88 Orb  Slot88 Golden Empress  Slot88 King Cat  Slot88 Panda Persuit dan Slot88 Joker Jewel 88 
-
-    Slot Pulsa Tanpa Potongan Joker123
-
-Selalu jadi referensi dari sebuah situs judi Slot Pulsa Tanpa Potongan terpercaya pada penelusuran google adalah joker123 slot 77 mania permainan golden slot karena sering jadi opsi terbaik beberapa pemain 
-
-    Slot Pulsa Tanpa Potongan Habanero
-
-Slot Pulsa Tanpa Potongan terpercaya gacor mania dapat kalian dapatkan dalam provider slot habanero  Dengan winrate RTP slot88 mania tinggi ada di tiap permainan membuat kesempatan memperoleh slot88 login jekpot x5000 besar sekali  Banyak games slot 88 populer dari Provider Habanero slot yakni Slot 88 zeus  5 Lucky Lions  Slot Bahagia Ape  Slot Koi Gate  Slot Lucky Fortune Cat dan Slot Candy Tower 
-
-    Slot Pulsa Tanpa Potongan Spadegaming
-
-Provider Slot Pulsa Tanpa Potongan terbaik spadegaming dibikin di tahun 2013 sekarang telah mempunyai beberapa ratus permainan  RTP slot777 spadegaming di IndoBet sangat tinggi dan bisa hasilkan jp paus slot 777 besar 
-
-    Slot Pulsa Tanpa Potongan Live22
-
-Perusahaan slot Live 22 barusan bekerja bersama dengan cap nexus engine  selalu stabil memberikan macam permainan selalu datang tiap bulannya dan mempunyai RTP live slot mania lumayan tinggi 
-
-    Slot Pulsa Tanpa Potongan Playtech
-
-Playtech sebagai provider Slot Pulsa Tanpa Potongan terkomplet dalam jumlah permainan sampai beberapa ratus  Penampilan hebat responsive dan bisa kalian memainkan pada Android atau IOS membuat makin terkenal ditambahkan lagi ada RTP slot besar 
-
-    Slot Pulsa Tanpa Potongan CQ9
-
-CQ9 mempunyai kantor terpusat di Philipina lebih persisnya Manila  games Slot Pulsa Tanpa Potongan terbaik asia CQ9 selalu memberikan keuntungan karena provider Slot Pulsa Tanpa Potongan terbaik CQ9 selalu pilih bersama siapa ia bekerja bersama  tentu saja situs Slot Pulsa Tanpa Potongan terbaik seperti IndoBet telah bekerja bersama 
-
-    Slot Pulsa Tanpa Potongan IDN Slot
-
-Tiap pejudi idn Slot Pulsa Tanpa Potongan terbaik dapat mempunyai kesempatan lumayan besar untuk menang maxwin dalam provider idn Slot Pulsa Tanpa Potongan terbaik karena provider idn slot memiliki beberapa pilihan slot terbaik seperti medusa multiplier  slot mega lucky easter  slot wild xmas  slot priate treasure dan banyak lagi yang lain 
-
-    Slot Pulsa Tanpa Potongan PG Soft
-
-Provider PG Soft mempunyai sebuah inovasi baru designya kekinian  Slot PG Soft memiliki penampilan demikian responsive  RTP live slot PG soft sangat tinggi hingga membuat peruntungan slot 77 memang sangat besar hingga memperoleh slot88 cuan 
-
-Daftar Bocoran Games Slot Pulsa Tanpa Potongan Hari Ini IndoBet RTP Live Paling populer
-                                                                                       
-
-Bila kalian ingin sekali mencetak kemenangan besar karena itu bermainlah Slot Pulsa Tanpa Potongan di situs raja slot88 online gacor yakni  IndoBet      Kami akan mereferensikan beberapa games IndoBet online dengan RTP live dan slot88 win rate maxwin tinggi sekali  Berikut daftar bocoran games Slot Pulsa Tanpa Potongan ini hari berada di situs IndoBet  
-
-    Games Slot Pulsa Tanpa Potongan Hari Ini Gates of olympus
-
-Games Slot Pulsa Tanpa Potongan pertama sangat direferensikan oleh kami bila anda ingin memperoleh kemenangan  yak benar games slot88 pragmatic play itu ialah gates of olympus  Games slot bertopik IndoBet yunani kuno yakni kakek petir zeus asal dari provider populer yakni pragmatic play sangat populer sebagai games gampang jekpot  Winrate tinggi mengakibatkan gampang raih jekpot slot88 RTP live prosentasenya sampai 98 60   Keunggulan pada games slot88 ini adalah mempunyai feature bagus sekali yakni bisa melipat gandakan hasil kemenangan anda 
-
-    Games Slot Pulsa Tanpa Potongan Hari Ini Sweet Bonanza
-
-Sweet Bonanza ialah games Slot Pulsa Tanpa Potongan gacor mania pragmatic play Indonesia mempunyai jekpot slot88 besar bertopik buah buahan  Dengan topik buah buahan membuat permainan slot88 peruntungan menganakemaskan mata beberapa bettor waktu bermain games slot sweet bonanza  Karena sweet bonanza selalu memberikan ke beberapa pemain keuntungan maxwin dengan jekpot RTP live sampai 98 20  asal dari provider populer yakni pragmatic play 
-
-    Games Slot Pulsa Tanpa Potongan Hari Ini Lantern Luck
-
-Games slot lantern luck sebagai games Slot Pulsa Tanpa Potongan ini hari di datangkan oleh provider Habanero  Games slot88 online gacor mania bertopik beberapa lampu elok seperti lampion  Kalian pasntinya terus akan suka bermain games latern luck selainnya topik menarik lantern luck tawarkan winrate lumayan tinggi RTP live nya capai 97  sudah tentu Slot Pulsa Tanpa Potongan 
-
-    Games Slot Pulsa Tanpa Potongan Hari Ini Immortal Romance
-
-Immortal Romance sebagai games Slot Pulsa Tanpa Potongan ini hari asal dari microgaming  Games Slot Pulsa Tanpa Potongan gacor mania mendatangkan topik menarik dengan penuh cinta akan menganakemaskan mata anda  winrate games slot mania termasuk tinggi karena RTP live nya capai 96  
-
-    Games Slot Pulsa Tanpa Potongan Hari Ini Mahjong Ways
-
-Games Slot Pulsa Tanpa Potongan ini hari paling akhir kami referensikan ialah mahjong ways asal dari provider Slot Pulsa Tanpa Potongan gacor mania PG soft  Permainan Slot Pulsa Tanpa Potongan mendatangkan topik seperti games tradisionil yakni mahjong di mana games slot mania itu sangat populer  mahjong ways mempunyai RTP live sebesar 96 20  angka itu lumayan tinggi untuk Slot Pulsa Tanpa Potongan 
-
-Tersebut sebagai daftar Slot Pulsa Tanpa Potongan terpercaya terbanyak pemainnya di provider pragmatic play  Saat sebelum lakukan taruhan ketahui lebih dulu panduan langkah menang bermain Slot Pulsa Tanpa Potongan terkini untuk buka kesempatan raih jekpot x5000 
-
-Keuntungan Bermain Di Situs Judi Slot Pulsa Tanpa Potongan IndoBet Terkomplet
-                                                                             
-
-Selainnya keuntungan dari promosi dan beragam games slot88 gacor berada di situs IndoBet  Anda pun memperoleh sebuah keuntungan yang lain pada intinya cukup punya pengaruh buat anda mencetak kemenangan pada waktu bermain games Slot Pulsa Tanpa Potongan mania  Berikut sebagai keuntungan main di situs slot88 IndoBet 
-
-    Bisa Dijangkau Tiap Saat 24 Jam
-
-Service ini bermanfaat untuk kamu bila ingin bermain games Slot Pulsa Tanpa Potongan gacor mania kapan dimanapun  Hingga itu membuat anda memiliki kesempatan besar untuk memperoleh jekpot slot88 dan bonus IndoBet yang ada  Disamping itu service CS atau layanan konsumen selalu online 24 jam non stop 
-
-    Bermacam Games Slot Pulsa Tanpa Potongan RTP Live Tinggi
-
-IndoBet tentu memberikan beberapa anggotanya sebuah keuntungan waktu bermain games slot88  Hal tersebut membuat games mega slot 88 mania yang berada di situs judi Slot Pulsa Tanpa Potongan terbaik bisa mendapat winrate slot88 dan RTP live tinggi capai 97   Kalian dapat rasakan bagaimana untungnya bermain situs slot88 online gacor mania kami dan ditegaskan tidak rugi 
-
-    Jumlah Deposit Murah
-
-Berbicara masalah Slot Pulsa Tanpa Potongan tentunya anda harus memperoleh keuntungan dari situs kami  untuk memperoleh keuntungan dari situs kami cukup gampang cukup dengan mengawali slot88 deposit 10 000 rupiah saja kalian bisa mainkan beragam games Slot Pulsa Tanpa Potongan di situs judi Slot Pulsa Tanpa Potongan IndoBet dan raih beragam keuntungan yang memikat
-
-    Bonus Jekpot Slot88 Gacor
-
-Keuntungan yang hendak dicari oleh beberapa slot mania ialah raih jekpot slot88 dari bonus slot88 tiap waktu bermain  Selainnya memberikan slot bonus new anggota 100  IndoBet sudah memberikan alternative slot sultan seperti slot jekpot capai 300    Hal tersebut sebagai wujud animo untuk beberapa bettor setia judi Slot Pulsa Tanpa Potongan terbaik IndoBet 
-
-    Games Slot88 Online Menggembirakan
-
-Di saat zaman kekinian sekarang games Slot Pulsa Tanpa Potongan selalu memberikan selingan yang bagus sekali  Dengan animasi hebat menganakemaskan mata ditambahkan beragam lambang khusus dan sebuah perputaran slot bonus membuat bermain mesin judi slot88 dewa gampang menang jadikan jekpot slot88 untuk siapa pun dapat memperoleh 
-
-Daftar Games Judi Online Terpercaya dan Gacor Di Indonesia 2023
-                                                               
-
-IndoBet sebagai situs ruh buat anda mencetak kemenangan pada waktu bermain games taruhan online terbaik bukan hanya mendatangkan permainan IndoBet kekinian  Memang hadiah IndoBet sangat hebat  Namun agen 88 slot sah IndoBet sediakan beragam perjudian online yang lain bisa kalian mainkan  Beberapa perjudian online paling populer misalnya  
-
-    Judi Games Slot Pulsa Tanpa Potongan
-
-Taruhan online terpercaya pertama ialah judi Slot Pulsa Tanpa Potongan dengan keringanan saat lakukan bermainnya dan juga gampang untuk raih menang maxwin jekpot slot88 besar  Apa lagi sekarang banyak provider judi Slot Pulsa Tanpa Potongan mendatangkan asia Slot Pulsa Tanpa Potongan terbaik gampang menang lewat mesin slot 
-
-    Judi Poker Online
-
-perjudian online selanjutnya ialah judi idn poker online yang memakai kartu pada waktu bermain  Judi poker online sangat hebat untuk mempertajam otak  Judi Idn Poker dapat dimainkan dengan online makin menambah permainan ini terkenal 
-
-    Judi Kasino Online
-
-Sejak dulu saat kasino benar benar dihandalkan beberapa pejudi pada saat off line  Bersamaan perubahan jaman  makin bertambah pecintanya karena judi idn kasino dapat dimainkan dengan online dan benar benar lumayan gampang untuk memenanginya 
-
-    Judi Online Arcade
-
-perjudian online arcade sebagai permainan terkenal dunia  Permainan arcade disiapkan perusahaan gaming makin menambah beberapa pemain tertarik sama rintangan dalam permainan itu  Apa lagi sekarang telah banyak bonus menang maxwin besar 
-
-    Judi Bola Online
-
-Mulai dari dulu taruhan sepakbola sangat terkenal  oleh karena itu sekarang judi bola online ada telah banyak pecintanya  Apa lagi sekarang telah banyak banyak muncul pasaran bola seperti sbobet   1 2  over under  vooran dan lain lain 
-
-    Judi Togel Online
-
-Daftar perjudian online paling populer paling akhir ialah judi togel online  Perjudian online togel mewajibkan pemain menerka angka dari sebuah livedraw pasaran  bila ingin memperoleh hasil besar karena itu pasang angka di taruhan slot 4D togel asia  atau ingin
-
-FAQ   Pertanyaan Umum Berkenaan Situs Judi Online Slot88 Terbaik
-                                                                
-
-     Apa itu Slot Pulsa Tanpa Potongan 
-
- Slot Pulsa Tanpa Potongan     sebagai salah satunya games taruhan online yang gampang untuk dimainkan dan memberikan keuntungan pemain  dengan ide dari row dan reels jumlah yang berbeda dan mempunyai beberapa simbol bonus pada mesin slot  Slot Pulsa Tanpa Potongan jadi games taruhan online paling populer dunia permainan judi 
-
-     Apa Slot Pulsa Tanpa Potongan dengan taruhan online itu berlainan 
-
-Pasti berlainan karena Slot Pulsa Tanpa Potongan masuk ke dalam tipe games taruhan online  menjadi taruhan online yang memuat semua tipe perjudian yang sudah dilakukan dengan online yakni seperti togel online  idn live kasino  idn poker  slot88 dan banyak lagi yang lain 
-
-     Apa itu taruhan online 
-
-Taruhan online ialah perjudian yang berkembang memakai tehnologi lewat cara online lewat internet mendapat dimainkan dimanapun yang dahulunya cuma judi biasa atau off line dimainkan cuma pada tempat tertentu  taruhan online bisa hasilkan keuntungan yang besar secara mudah 
-
-     Apa yang Diartikan RTP slot 
-
-RTP slot sebuah prosentase dari payment yang dibayar beberapa slotter waktu bermain Slot Pulsa Tanpa Potongan  Saat sesuatu games slot mempunyai RTP slot tinggi  karena itu bisa ditegaskan bonus yang dibuat juga tinggi 
-
-     Bagaimanakah cara bermain Slot Pulsa Tanpa Potongan uang asli 
-
-Langkah bermain Slot Pulsa Tanpa Potongan dengan uang asli benar benar gampang yakni dengan mendaftarkan terlebih dahulu di situs IndoBet lalu mendeposit  Karena itu kalian tinggal pilih mesin permainan slot yang kalian sukai 
-
-     Games apa yang gacor sekarang ini 
-
-Untuk sekarang ini banyak games Slot Pulsa Tanpa Potongan yang ada namun cuma sweet bonanza dan gates of olympus dari provider pragmatic play yang paling gacor ada di rangking atas 
-
-     Tipe games taruhan online apa yang berada di IndoBet 
-
-Beberapa games yang berada di taruhan online ialah Slot Pulsa Tanpa Potongan  togel online  poker online  judi bol
-
-     Bagaimanakah cara mengeklaim bonus 
-
-Langkah untuk mengeklaim bonus benar benar gampang cukup masuk pada menu bonus dan claim  Jika kalian belum memahami  karena itu cepatlah kontak layanan konsumen yang hendak menolong anda untuk mengeklaim bonus slot jekpot 
-
-     Bagaimanakah cara mendeposit 
-
-Untuk mendeposit di situs IndoBet yakni lewat beberapa bank lokal seperti  BRI  BSI  BNI  BCA  Genius  Berdikari  Panin Bank  CIMB NIaga dan e wallet  DANA  GOPAY  Sakuku  LinkAja dan Ovo  
-
-     Apa situs IndoBet dapat dijangkau 24 jam non stop 
-
-IndoBet benar benar dapat ditegaskan akan online sepanjang 24 jam non stop dan kalian akan memperoleh servis yang terbaik "
 "    Duplicates
 
    X  I have searched the existing issues
@@ -563,47 +1222,6 @@ See also issue https   github com Significant Gravitas Auto GPT issues 3445
     Motivation  
 
 GPT 3 or 4 often tries to code Python scripts to do basic I O operations  because it has no choice  We didn t provide it with the basic and most common commands to handle I O operations on documents  So it can only resort to writing the functions by itself in Python   What we need to do is to give Auto GPT a set of plugins commands  it would be better if those were converted to plugins  to solve these simple but common I O tasks "
-"        At the moment any non essential commands are not being merged 
-If you want to add non essential commands to Auto GPT  please create a plugin instead 
-We are expecting to ship plugin support within the week  PR  757  
-Resources 
-  https   github com Significant Gravitas Auto GPT Plugin Template
-   
-
-       Announcement
-We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
-
-Focus on a single  specific change 
-Do not include any unrelated or  extra  modifications 
-Provide clear documentation and explanations of the changes made 
-Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
-For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
-
-By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
-
-    Background
-     Provide a concise overview of the rationale behind this change  Include relevant context  prior discussions  or links to related issues  Ensure that the change aligns with the project s overall direction     
-
-    Changes
-     Describe the specific  focused change made in this pull request  Detail the modifications clearly and avoid any unrelated or  extra  changes     
-
-    Documentation
-     Explain how your changes are documented  such as in code comments or external documentation  Ensure that the documentation is clear  concise  and easy to understand     
-
-    Test Plan
-     Describe how you tested this functionality  Include steps to reproduce  relevant test cases  and any other pertinent information     
-
-    PR Quality Checklist
-   x  My pull request is atomic and focuses on a single change 
-   x  I have thoroughly tested my changes with multiple different prompts 
-   x  I have considered potential risks and mitigations for my changes 
-   x  I have documented my changes clearly and comprehensively 
-   x  I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
-
-     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
-
-     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
-"
 "       Search for existing issues first   
 
    X  I have searched the existing issues  and there is no existing issue for my problem
@@ -749,86 +1367,6 @@ I documented my code using inline comments to explain the purpose of each sectio
 
      By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
 "
-"       Search for existing issues first   
-
-   X  I have searched the existing issues  and there is no existing issue for my problem
-
-    
-
-Linux
-
-    Which version of Auto GPT are you using 
-
-Master  branch 
-
-    GPT 3 or GPT 4 
-
-GPT 3 5
-
-    Steps to reproduce  
-
-sudo python3  m autogpt    continuous   gpt3only
-y
-
-    Current behavior  
-
-NEXT ACTION   COMMAND   improve code ARGUMENTS     suggestions     Remove variable message since it is not used     Provide more context to the purposes of the code     Provide more information about the GPTAgent class and sendMessage method     Provide more context to the expected behavior of the code      code    String message    Hello Spring Agent   nAgent agent   GPTAgent getAgent    nagent sendMessage message   n  
-SYSTEM   Command improve code returned    Improved code with the given suggestions   Removed unused variable message   Added comments to provide context and expected behavior   Added docstrings to provide information about the GPTAgent class and sendMessage method from typing import List def generate improved code suggestions  List str   code  str     str    Provide more context to the purposes of the code    This code sends a message to a GPTAgent using the sendMessage method   Provide more information about the GPTAgent class and sendMessage method      The GPTAgent class is a class that represents an agent that can communicate with the GPT 3 API  The sendMessage method is a method of the GPTAgent class that sends a message to the GPT 3 API        Provide more context to the expected behavior of the code    The expected behavior of this code is to send the message  Hello Spring Agent  to the GPT 3 API using the GPTAgent class    Removed unused variable message agent   GPTAgent getAgent   agent sendMessage  Hello Spring Agent  
-Traceback  most recent call last  
-  File   usr lib python3 10 runpy py   line 196  in  run module as main
-    return  run code code  main globals  None 
-  File   usr lib python3 10 runpy py   line 86  in  run code
-    exec code  run globals 
-  File   home user Auto GPT autogpt   main   py   line 5  in  module 
-    autogpt cli main  
-  File   usr local lib python3 10 dist packages click core py   line 1130  in   call  
-    return self main  args    kwargs 
-  File   usr local lib python3 10 dist packages click core py   line 1055  in main
-    rv   self invoke ctx 
-  File   usr local lib python3 10 dist packages click core py   line 1635  in invoke
-    rv   super   invoke ctx 
-  File   usr local lib python3 10 dist packages click core py   line 1404  in invoke
-    return ctx invoke self callback    ctx params 
-  File   usr local lib python3 10 dist packages click core py   line 760  in invoke
-    return   callback  args    kwargs 
-  File   usr local lib python3 10 dist packages click decorators py   line 26  in new func
-    return f get current context     args    kwargs 
-  File   home user Auto GPT autogpt cli py   line 90  in main
-    run auto gpt 
-  File   home user Auto GPT autogpt main py   line 157  in run auto gpt
-    agent start interaction loop  
-  File   home user Auto GPT autogpt agent agent py   line 94  in start interaction loop
-    assistant reply   chat with ai 
-  File   home user Auto GPT autogpt llm chat py   line 166  in chat with ai
-    agent summary memory   update running summary 
-  File   home user Auto GPT autogpt memory management summary memory py   line 76  in update running summary
-    content dict   json loads event  content   
-  File   usr lib python3 10 json   init   py   line 346  in loads
-    return  default decoder decode s 
-  File   usr lib python3 10 json decoder py   line 337  in decode
-    obj  end   self raw decode s  idx  w s  0  end   
-  File   usr lib python3 10 json decoder py   line 353  in raw decode
-    obj  end   self scan once s  idx 
-json decoder JSONDecodeError  Expecting     delimiter  line 12 column 48  char 1008 
-
-
-    Expected behavior  
-
-proper work
-
-    Your prompt  
-
-   yaml
-  Paste your prompt here
-   
-
-
-    Your Logs  
-
-   log
- insert your logs here 
-   
-"
 "    Duplicates
 
    X  I have searched the existing issues
@@ -846,98 +1384,6 @@ Given the number of open PRs and issues  I feel it might make sense to version t
     Motivation  
 
  No response "
-"I am sorry for being a completely newb in here  yet  i have to try and learn how to use autogpt  I followed the instructions on how to install finished with the api keys and now on terminal i get this  
-
-
-   
-PS C  Users Nick Vastakis Desktop Auto GPT 0 2 2  python  m autogpt
-Traceback  most recent call last  
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages git   init   py   line 89  in  module 
-    refresh  
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages git   init   py   line 76  in refresh
-    if not Git refresh path path  
-                                 
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages git cmd py   line 392  in refresh
-    raise ImportError err 
-ImportError  Bad git executable 
-The git executable must be specified in one of the following ways 
-      be included in your  PATH
-      be set via  GIT PYTHON GIT EXECUTABLE
-      explicitly set via git refresh  
-
-All git commands will error until this is rectified 
-
-This initial warning can be silenced or aggravated in the future by setting the
- GIT PYTHON REFRESH environment variable  Use one of the following values 
-      quiet q silence s none n 0  for no warning or exception
-      warn w warning 1  for a printed warning
-      error e raise r 2  for a raised exception
-
-Example 
-    export GIT PYTHON REFRESH quiet
-
-
-The above exception was the direct cause of the following exception 
-
-Traceback  most recent call last  
-  File   frozen runpy    line 198  in  run module as main
-  File   frozen runpy    line 88  in  run code
-  File  C  Users Nick Vastakis Desktop Auto GPT 0 2 2 autogpt   main   py   line 5  in  module 
-    autogpt cli main  
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages click core py   line 1130  in   call  
-    return self main  args    kwargs 
-                                     
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages click core py   line 1055  in main
-    rv   self invoke ctx 
-                         
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages click core py   line 1635  in invoke
-    rv   super   invoke ctx 
-                            
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages click core py   line 1404  in invoke
-    return ctx invoke self callback    ctx params 
-                                                  
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages click core py   line 760  in invoke
-    return   callback  args    kwargs 
-                                      
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages click decorators py   line 26  in new func
-    return f get current context     args    kwargs 
-                                                    
-  File  C  Users Nick Vastakis Desktop Auto GPT 0 2 2 autogpt cli py   line 77  in main
-    from autogpt agent agent import Agent
-  File  C  Users Nick Vastakis Desktop Auto GPT 0 2 2 autogpt agent   init   py   line 1  in  module 
-    from autogpt agent agent import Agent
-  File  C  Users Nick Vastakis Desktop Auto GPT 0 2 2 autogpt agent agent py   line 3  in  module 
-    from autogpt app import execute command  get command
-  File  C  Users Nick Vastakis Desktop Auto GPT 0 2 2 autogpt app py   line 13  in  module 
-    from autogpt commands file operations import  
-  File  C  Users Nick Vastakis Desktop Auto GPT 0 2 2 autogpt commands file operations py   line 13  in  module 
-    from autogpt utils import readable file size
-  File  C  Users Nick Vastakis Desktop Auto GPT 0 2 2 autogpt utils py   line 6  in  module 
-    from git import Repo
-  File  C  Users Nick Vastakis AppData Local Programs Python Python311 Lib site packages git   init   py   line 91  in  module 
-    raise ImportError  Failed to initialize   0   format exc   from exc
-ImportError  Failed to initialize  Bad git executable 
-The git executable must be specified in one of the following ways 
-      be included in your  PATH
-      be set via  GIT PYTHON GIT EXECUTABLE
-      explicitly set via git refresh  
-
-All git commands will error until this is rectified 
-
-This initial warning can be silenced or aggravated in the future by setting the
- GIT PYTHON REFRESH environment variable  Use one of the following values 
-      quiet q silence s none n 0  for no warning or exception
-      warn w warning 1  for a printed warning
-      error e raise r 2  for a raised exception
-
-Example 
-    export GIT PYTHON REFRESH quiet
-
-PS C  Users Nick Vastakis Desktop Auto GPT 0 2 2 
-   
-
-
-Any help would be relly appreciated  "
 "    Duplicates
 
    X  I have searched the existing issues
@@ -1572,10 +2018,18 @@ The following steps  need to be taken to do this
       Split the Plugin interface into logical sections of  at minimum 
            3650
            3655
-          Text to Speech
           Commands
-          User Interfaces
+          prompt generator
           Embeddings
+          Experience Interfaces
+          Text to Speech
+
+	Longer term 
+          Plugin Manager
+          The workspace    Exists
+          Config manager
+          resource manager
+
       Publish these updates to the Plugin Template
       Update all plugins to use these new structures
        3654 "
@@ -4484,49 +4938,48 @@ MVP
    x  I have considered potential risks and mitigations for my changes    FULL BACKWARD COMPATIBILITY  
    x  I have documented my changes clearly and comprehensively 
    x  I have not snuck in any  extra  small tweaks changes 
-"
-"No manifest found with default  latest  tag since tagged with version number  Need to ensure proper version   is grabbed 
 
-        At the moment any non essential commands are not being merged 
-If you want to add non essential commands to Auto GPT  please create a plugin instead 
-We are expecting to ship plugin support within the week  PR  757  
-Resources 
-  https   github com Significant Gravitas Auto GPT Plugin Template
+    Additional informations   
+
+To loop back on features gathered in  3392    
+
+   x  AgentTeam object
+   x  Dynamic   Extensible Agent  the agent is constructed dynamically allowing flexibility    plug ins 
+      Dynamic   Extensible Project
+      Dynamic   Extensible Agent Team
+      Status
+      State awareness
+      Implement folder per agent
+   x  Agent unique ID
+      Agent budget
+      Agent budget consumption
+      Project open api key
+
+  YAML   
+Option implemented    Option 3 
+   
+my project 
+     team
+               leader   
+                           agent 1
+               specialized agents   
+                            agent 2
+                            agent 3
+                           agent 4
    
 
-       Announcement
-We ve recently noticed an increase in pull requests focusing on combining multiple changes  While the intentions behind these PRs are appreciated  it s essential to maintain a clean and manageable git history  To ensure the quality of our repository  we kindly ask you to adhere to the following guidelines when submitting PRs 
+  Folder   
+Option implemented   Option 1   could be a MVP
+   
+autogpt
+    projects
+           project 1
+               settings yaml
+           project 2
+               settings yaml
+              
+   
 
-Focus on a single  specific change 
-Do not include any unrelated or  extra  modifications 
-Provide clear documentation and explanations of the changes made 
-Ensure diffs are limited to the intended lines   no applying preferred formatting styles or line endings  unless that s what the PR is about  
-For guidance on committing only the specific lines you have changed  refer to this helpful video  https   youtu be 8 hSNHHbiZg
-
-By following these guidelines  your PRs are more likely to be merged quickly after testing  as long as they align with the project s overall direction     
-
-    Background
-     Provide a concise overview of the rationale behind this change  Include relevant context  prior discussions  or links to related issues  Ensure that the change aligns with the project s overall direction     
-
-    Changes
-     Describe the specific  focused change made in this pull request  Detail the modifications clearly and avoid any unrelated or  extra  changes     
-
-    Documentation
-     Explain how your changes are documented  such as in code comments or external documentation  Ensure that the documentation is clear  concise  and easy to understand     
-
-    Test Plan
-     Describe how you tested this functionality  Include steps to reproduce  relevant test cases  and any other pertinent information     
-
-    PR Quality Checklist
-      My pull request is atomic and focuses on a single change 
-      I have thoroughly tested my changes with multiple different prompts 
-      I have considered potential risks and mitigations for my changes 
-      I have documented my changes clearly and comprehensively 
-      I have not snuck in any  extra  small tweaks changes      Submit these as separate Pull Requests  they are the easiest to merge     
-
-     If you haven t added tests  please explain why  If you have  check the appropriate box  If you ve ensured your PR is atomic and well documented  check the corresponding boxes     
-
-     By submitting this  I agree that my pull request should be closed if I do not fill this out or follow the guidelines     
 "
 "       Search for existing issues first   
 
@@ -5996,7 +6449,9 @@ What is missing is a command that just fix the errors in the code  like this
 It could also be boosted by adding a function to learn API from docs   
     autogpt commands learn api  
   
-For example  danielgross LlamaAcademy  https   github com danielgross LlamaAcademy  is an excellent project aiming at automate API learning for LLMs  It should be studied or even integrated in Auto GPT 
+For example  danielgross LlamaAcademy  https   github com danielgross LlamaAcademy  is an excellent project aiming at automate API learning for LLMs  It should be studied or even integrated into Auto GPT 
+
+Also  all commands should be converted into plugins  The plugin model is much more consistent and extensible 
   
 
 
@@ -7192,48 +7647,6 @@ Everything is correct  except the calculated volume of the tetrahedron  The form
     Motivation  
 
  Simple  calculation needs to be done all the time and without relieable results not much can be achieved "
-"       Search for existing issues first   
-
-   X  I have searched the existing issues  and there is no existing issue for my problem
-
-    
-
-MacOS
-
-    Which version of Auto GPT are you using 
-
-Latest Release
-
-    GPT 3 or GPT 4 
-
-GPT 4
-
-    Steps to reproduce  
-
-There is no tag in the command for pulling the image from docker hub  in the setup instructions 
-
-It should be   docker pull significantgravitas auto gpt 0 2 2   not   docker pull significantgravitas auto gpt  
-
-
-
-
-
-    Current behavior  
-
-Using default tag  latest
-Error response from daemon  manifest for significantgravitas auto gpt latest not found  manifest unknown  manifest unknown
-
-    Expected behavior  
-
-It will install the image 
-
-    Your prompt  
-
- No response 
-
-    Your Logs  
-
- No response "
 "       Search for existing issues first   
 
    X  I have searched the existing issues  and there is no existing issue for my problem
@@ -22506,38 +22919,6 @@ Suggestion  Force AutoGPT to search web only for data post 2021 if it feels its 
     Motivation  
 
  No response "
-"    Duplicates
-
-   X  I have searched the existing issues
-
-    Steps to reproduce  
-
-Docker buidl goes perfectly fine  albeit with a lot of warning  
-
- 
-docker run  it   env file    env  v   auto gpt workspace  app auto gpt workspace autogpt
-
-gives back 
-
- usr local bin python  No module named autogpt
-
-
-I have followed the README exactly  This is a checked out master from some minutes ago 
-
-    Current behavior  
-
- usr local bin python  No module named autogpt
-
-    Expected behavior  
-
-It should just run  right 
-
-    Your prompt  
-
-   yaml
-  Paste your prompt here
-   
-"
 "    Duplicates
 
    X  I have searched the existing issues
